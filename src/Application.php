@@ -63,6 +63,7 @@ class Application extends BaseApplication
         if (Configure::read('debug')) {
             $this->addPlugin('DebugKit');
         }
+        $this->addPlugin('AdminLTE');
 
         // Load more plugins here
     }
@@ -129,7 +130,7 @@ class Application extends BaseApplication
     {
         try {
             $this->addPlugin('Bake');
-            $this->addPlugin('AdminLTE');
+            
         } catch (MissingPluginException $e) {
             // Do not halt if the plugin is missing
         }
