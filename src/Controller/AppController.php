@@ -54,5 +54,17 @@ class AppController extends Controller
     public function beforeRender(EventInterface  $event)
     {
         $this->viewBuilder()->setTheme('AdminLTE');
+        // Note: These defaults are just to get started quickly with development
+        // and should not be used in production. You should instead set "_serialize"
+        // in each action as required.
+        if ($this->request->getAttribute('paging') !== false &&
+            in_array($this->response->getType(), ['application/json', 'application/xml'])
+        ) {
+            $this->set('paging', current($this->request->getAttribute('paging')));
+        }
+        if (in_array($this->response->getType(), ['application/json', 'application/xml'])
+        ) {
+            $this->ViewBuilder()->setOption('serialize', true);
+        }
     }
 }

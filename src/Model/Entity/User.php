@@ -15,9 +15,11 @@ use Cake\ORM\Entity;
  * @property string|null $phone
  * @property string|null $address1
  * @property string|null $address2
+ * @property int|null $blockcode
  * @property string|null $block
  * @property string|null $subblock
  * @property string|null $city
+ * @property int|null $distcode
  * @property string|null $district
  * @property string|null $state
  * @property int|null $postal_code
@@ -62,9 +64,11 @@ class User extends Entity
         'phone' => true,
         'address1' => true,
         'address2' => true,
+        'blockcode' => true,
         'block' => true,
         'subblock' => true,
         'city' => true,
+        'distcode' => true,
         'district' => true,
         'state' => true,
         'postal_code' => true,

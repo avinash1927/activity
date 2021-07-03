@@ -61,13 +61,22 @@ class UsersTable extends Table
         $this->hasMany('Harvest', [
             'foreignKey' => 'user_id',
         ]);
+        $this->hasMany('SaleReports', [
+            'foreignKey' => 'user_id',
+        ]);
         $this->hasMany('Updatebankdata', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('Updatemobilenumber', [
             'foreignKey' => 'user_id',
         ]);
         $this->hasMany('UserCropCommision', [
             'foreignKey' => 'user_id',
         ]);
         $this->hasMany('VwVegSaleReports', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('VwVegUnionSaleReports', [
             'foreignKey' => 'user_id',
         ]);
     }
@@ -115,6 +124,10 @@ class UsersTable extends Table
             ->allowEmptyString('address2');
 
         $validator
+            ->integer('blockcode')
+            ->allowEmptyString('blockcode');
+
+        $validator
             ->scalar('block')
             ->maxLength('block', 255)
             ->allowEmptyString('block');
@@ -128,6 +141,10 @@ class UsersTable extends Table
             ->scalar('city')
             ->maxLength('city', 100)
             ->allowEmptyString('city');
+
+        $validator
+            ->integer('distcode')
+            ->allowEmptyString('distcode');
 
         $validator
             ->scalar('district')
