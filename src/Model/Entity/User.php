@@ -9,42 +9,13 @@ use Cake\ORM\Entity;
  * User Entity
  *
  * @property int $id
- * @property string|null $full_name
+ * @property string|null $name
+ * @property string|null $mobile
  * @property string|null $email
- * @property string $password
- * @property string|null $phone
- * @property string|null $address1
- * @property string|null $address2
- * @property int|null $blockcode
- * @property string|null $block
- * @property string|null $subblock
- * @property string|null $city
- * @property int|null $distcode
- * @property string|null $district
- * @property string|null $state
- * @property int|null $postal_code
- * @property string|null $access_token
- * @property string|null $device_token
- * @property string|null $device_type
- * @property int $is_notification
- * @property string|null $login_ip
- * @property \Cake\I18n\FrozenTime|null $last_login
- * @property string|null $otp
- * @property string|null $img_file
- * @property int|null $is_verified
- * @property int $role
- * @property int|null $type
- * @property int $status
- * @property \Cake\I18n\FrozenTime $created_on
- * @property \Cake\I18n\FrozenTime $modified_on
- *
- * @property \App\Model\Entity\CropOrder[] $crop_order
- * @property \App\Model\Entity\CropOrderReceived[] $crop_order_received
- * @property \App\Model\Entity\Farmer[] $farmers
- * @property \App\Model\Entity\Harvest[] $harvest
- * @property \App\Model\Entity\Updatebankdata[] $updatebankdata
- * @property \App\Model\Entity\UserCropCommision[] $user_crop_commision
- * @property \App\Model\Entity\VwVegSaleReport[] $vw_veg_sale_reports
+ * @property bool|null $is_enable
+ * @property bool|null $is_trash
+ * @property \Cake\I18n\FrozenTime|null $created
+ * @property \Cake\I18n\FrozenTime|null $modified
  */
 class User extends Entity
 {
@@ -58,49 +29,12 @@ class User extends Entity
      * @var array
      */
     protected $_accessible = [
-        'full_name' => true,
+        'name' => true,
+        'mobile' => true,
         'email' => true,
-        'password' => true,
-        'phone' => true,
-        'address1' => true,
-        'address2' => true,
-        'blockcode' => true,
-        'block' => true,
-        'subblock' => true,
-        'city' => true,
-        'distcode' => true,
-        'district' => true,
-        'state' => true,
-        'postal_code' => true,
-        'access_token' => true,
-        'device_token' => true,
-        'device_type' => true,
-        'is_notification' => true,
-        'login_ip' => true,
-        'last_login' => true,
-        'otp' => true,
-        'img_file' => true,
-        'is_verified' => true,
-        'role' => true,
-        'type' => true,
-        'status' => true,
-        'created_on' => true,
-        'modified_on' => true,
-        'crop_order' => true,
-        'crop_order_received' => true,
-        'farmers' => true,
-        'harvest' => true,
-        'updatebankdata' => true,
-        'user_crop_commision' => true,
-        'vw_veg_sale_reports' => true,
-    ];
-
-    /**
-     * Fields that are excluded from JSON versions of the entity.
-     *
-     * @var array
-     */
-    protected $_hidden = [
-        'password',
+        'is_enable' => true,
+        'is_trash' => true,
+        'created' => true,
+        'modified' => true,
     ];
 }

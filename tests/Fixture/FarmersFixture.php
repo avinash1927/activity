@@ -1,0 +1,198 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Test\Fixture;
+
+use Cake\TestSuite\Fixture\TestFixture;
+
+/**
+ * FarmersFixture
+ */
+class FarmersFixture extends TestFixture
+{
+    /**
+     * Fields
+     *
+     * @var array
+     */
+    // phpcs:disable
+    public $fields = [
+        'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
+        'farmer_code' => ['type' => 'string', 'length' => 20, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'farmer_name' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'farmer_guardian' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'phone' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'password' => ['type' => 'text', 'length' => null, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'address' => ['type' => 'text', 'length' => null, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'panchayat' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'samooh_name' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'village' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'district' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'state' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => 'Bihar', 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'country' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => 'India', 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'postal_code' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'vo_name' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'age' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'gender' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'total_land' => ['type' => 'string', 'length' => 25, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'leased_land' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'block' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'ward' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'category' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'birth_year' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'adhaar' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'qualification' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'bank_name' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'bank_ifsc' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'account_no' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'bank_branch' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'nominee_name' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'nominee_birth_year' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'nominee_adhaar' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'nominee_relation' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'no_of_shares' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'rec_mem_reg' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'rec_mem_uuid' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'rec_mem_name' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'rec_mem_father' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'rec_mem_sign' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'rec_mem2_reg' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'rec_mem2_uuid' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'rec_mem2_name' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'rec_mem2_father' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'rec_mem2_sign' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'assigned_to' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'address_verified' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'adress_proof_uploaded' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'membership_paid' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'membership_paid_slip_uploaded' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'adhaar_verified' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'adhaar_uploaded' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'land_declared_verified' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'land_document_uploaded' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'lease_land_verified' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'lease_land_document_uploaded' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'bank_details_verified' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'bank_document_uploaded' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'profile_img' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'sign_image' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'domicile' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'challan_copy' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'utr_no' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'type' => ['type' => 'tinyinteger', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
+        'status' => ['type' => 'tinyinteger', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
+        'created_on' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'current_timestamp()', 'comment' => ''],
+        'created_on_new' => ['type' => 'string', 'length' => 50, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'created_by' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'land_area' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'patta_land_area' => ['type' => 'string', 'length' => 250, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'accepted' => ['type' => 'smallinteger', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => '0', 'comment' => '', 'precision' => null],
+        'user_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'ISmember' => ['type' => 'char', 'length' => 1, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'enrollment_number' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'remark' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'updated_on' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
+        'date_of_apply' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        '_indexes' => [
+            'fk_farmers_created_by' => ['type' => 'index', 'columns' => ['created_by'], 'length' => []],
+            'fk_farmers_assigned_to' => ['type' => 'index', 'columns' => ['assigned_to'], 'length' => []],
+        ],
+        '_constraints' => [
+            'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
+        ],
+        '_options' => [
+            'engine' => 'InnoDB',
+            'collation' => 'utf8mb4_general_ci'
+        ],
+    ];
+    // phpcs:enable
+    /**
+     * Init method
+     *
+     * @return void
+     */
+    public function init(): void
+    {
+        $this->records = [
+            [
+                'id' => 1,
+                'farmer_code' => 'Lorem ipsum dolor ',
+                'farmer_name' => 'Lorem ipsum dolor sit amet',
+                'farmer_guardian' => 'Lorem ipsum dolor sit amet',
+                'phone' => 'Lorem ipsum dolor sit amet',
+                'password' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+                'address' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+                'panchayat' => 'Lorem ipsum dolor sit amet',
+                'samooh_name' => 'Lorem ipsum dolor sit amet',
+                'village' => 'Lorem ipsum dolor sit amet',
+                'district' => 'Lorem ipsum dolor sit amet',
+                'state' => 'Lorem ipsum dolor sit amet',
+                'country' => 'Lorem ipsum dolor sit amet',
+                'postal_code' => 1,
+                'vo_name' => 'Lorem ipsum dolor sit amet',
+                'age' => 1,
+                'gender' => 1,
+                'total_land' => 'Lorem ipsum dolor sit a',
+                'leased_land' => 'Lorem ipsum dolor sit amet',
+                'block' => 'Lorem ipsum dolor sit amet',
+                'ward' => 'Lorem ipsum dolor sit amet',
+                'category' => 'Lorem ipsum dolor sit amet',
+                'birth_year' => 'Lorem ipsum dolor sit amet',
+                'adhaar' => 'Lorem ipsum dolor sit amet',
+                'qualification' => 'Lorem ipsum dolor sit amet',
+                'bank_name' => 'Lorem ipsum dolor sit amet',
+                'bank_ifsc' => 'Lorem ipsum dolor sit amet',
+                'account_no' => 'Lorem ipsum dolor sit amet',
+                'bank_branch' => 'Lorem ipsum dolor sit amet',
+                'nominee_name' => 'Lorem ipsum dolor sit amet',
+                'nominee_birth_year' => 'Lorem ipsum dolor sit amet',
+                'nominee_adhaar' => 'Lorem ipsum dolor sit amet',
+                'nominee_relation' => 'Lorem ipsum dolor sit amet',
+                'no_of_shares' => 'Lorem ipsum dolor sit amet',
+                'rec_mem_reg' => 'Lorem ipsum dolor sit amet',
+                'rec_mem_uuid' => 'Lorem ipsum dolor sit amet',
+                'rec_mem_name' => 'Lorem ipsum dolor sit amet',
+                'rec_mem_father' => 'Lorem ipsum dolor sit amet',
+                'rec_mem_sign' => 'Lorem ipsum dolor sit amet',
+                'rec_mem2_reg' => 'Lorem ipsum dolor sit amet',
+                'rec_mem2_uuid' => 'Lorem ipsum dolor sit amet',
+                'rec_mem2_name' => 'Lorem ipsum dolor sit amet',
+                'rec_mem2_father' => 'Lorem ipsum dolor sit amet',
+                'rec_mem2_sign' => 'Lorem ipsum dolor sit amet',
+                'assigned_to' => 1,
+                'address_verified' => 1,
+                'adress_proof_uploaded' => 1,
+                'membership_paid' => 1,
+                'membership_paid_slip_uploaded' => 1,
+                'adhaar_verified' => 1,
+                'adhaar_uploaded' => 1,
+                'land_declared_verified' => 1,
+                'land_document_uploaded' => 1,
+                'lease_land_verified' => 1,
+                'lease_land_document_uploaded' => 1,
+                'bank_details_verified' => 1,
+                'bank_document_uploaded' => 1,
+                'profile_img' => 'Lorem ipsum dolor sit amet',
+                'sign_image' => 'Lorem ipsum dolor sit amet',
+                'domicile' => 'Lorem ipsum dolor sit amet',
+                'challan_copy' => 'Lorem ipsum dolor sit amet',
+                'utr_no' => 'Lorem ipsum dolor sit amet',
+                'type' => 1,
+                'status' => 1,
+                'created_on' => '2021-07-04 07:11:19',
+                'created_on_new' => 'Lorem ipsum dolor sit amet',
+                'created_by' => 1,
+                'land_area' => 'Lorem ipsum dolor sit amet',
+                'patta_land_area' => 'Lorem ipsum dolor sit amet',
+                'accepted' => 1,
+                'user_id' => 1,
+                'ISmember' => '',
+                'enrollment_number' => 'Lorem ipsum dolor sit amet',
+                'remark' => 'Lorem ipsum dolor sit amet',
+                'updated_on' => '2021-07-04 07:11:19',
+                'date_of_apply' => '2021-07-04',
+            ],
+        ];
+        parent::init();
+    }
+}

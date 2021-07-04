@@ -29,34 +29,11 @@
           <?php echo $this->Form->create($user, ['role' => 'form']); ?>
             <div class="box-body">
               <?php
-                echo $this->Form->control('full_name');
+                echo $this->Form->control('name');
+                echo $this->Form->control('mobile');
                 echo $this->Form->control('email');
-                echo $this->Form->control('password');
-                echo $this->Form->control('phone');
-                echo $this->Form->control('address1');
-                echo $this->Form->control('address2');
-                echo $this->Form->control('blockcode');
-                echo $this->Form->control('block');
-                echo $this->Form->control('subblock');
-                echo $this->Form->control('city');
-                echo $this->Form->control('distcode');
-                echo $this->Form->control('district');
-                echo $this->Form->control('state');
-                echo $this->Form->control('postal_code');
-                echo $this->Form->control('access_token');
-                echo $this->Form->control('device_token');
-                echo $this->Form->control('device_type');
-                echo $this->Form->control('is_notification');
-                echo $this->Form->control('login_ip');
-                echo $this->Form->control('last_login', ['empty' => true]);
-                echo $this->Form->control('otp');
-                echo $this->Form->control('img_file');
-                echo $this->Form->control('is_verified');
-                echo $this->Form->control('role');
-                echo $this->Form->control('type');
-                echo $this->Form->control('status');
-                echo $this->Form->control('created_on');
-                echo $this->Form->control('modified_on');
+                echo $this->Form->control('is_enable');
+                echo $this->Form->control('is_trash');
               ?>
             </div>
             <!-- /.box-body -->
