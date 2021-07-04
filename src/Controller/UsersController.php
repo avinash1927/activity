@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Routing\Router;
 
 /**
  * Users Controller
@@ -22,11 +23,19 @@ class UsersController extends AppController
 
         // $this->set(compact('users'));
 
-        $users = $this->Users->find()->where(['is_trash' => 0])->order(['id' => 'DESC']);
+        //$users = $this->Users->find()->where(['is_trash' => 0])->order(['id' => 'DESC']);
+        $condition = array('is_trash' => 0);
         $this->paginate = array(
-            'limit' => 10,
+            'conditions'=>$condition,
+            'order'=>array(
+                'id'=>'DESC'
+                ),
         );
-        $this->set('users', $this->paginate($users));
+        $users = $this->paginate($this->Users);
+        // foreach ($users as $key => $user):
+        //     $user->photo = ($user->photo!='') ? Router::url('/', true)."files/".$user->photo : '';
+        // endforeach;
+        $this->set(compact('users'));
 
     }
 
@@ -58,11 +67,18 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The {0} has been saved.', 'User'));
 
-                return $this->redirect(['action' => 'index']);
+                $user->status = 1;
+                $user->message = 'Success';
+                if($this->request->getData('from')!='mobile'){
+                    $this->Flash->success(__('The {0} has been saved.', 'User'));
+                    return $this->redirect(['action' => 'index']);
+                }
+            }else{
+                $user->message = 'Fail';
+                $user->status = 0;
+                $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'User'));
             }
-            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'User'));
         }
         $this->set(compact('user'));
     }
