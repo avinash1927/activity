@@ -93,6 +93,7 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
+        $id = ($this->request->getData('id')!='')?$this->request->getData('id'):$id;
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
