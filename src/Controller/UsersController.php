@@ -99,11 +99,17 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The {0} has been saved.', 'User'));
-
-                return $this->redirect(['action' => 'index']);
+                $user->status = 1;
+                $user->message = 'Success';
+                if($this->request->getData('from')!='mobile'){
+                    $this->Flash->success(__('The {0} has been updated.', 'User'));
+                    return $this->redirect(['action' => 'index']);
+                }
+            }else{
+                $user->message = 'Fail';
+                $user->status = 0;
+                $this->Flash->error(__('The {0} could not be updated. Please, try again.', 'User'));
             }
-            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'User'));
         }
         $this->set(compact('user'));
     }
@@ -128,11 +134,17 @@ class UsersController extends AppController
                     ->execute();
 
         if ($result) {
-            $this->Flash->success(__('The {0} has been deleted.', 'User'));
+            $user->status = 1;
+            $user->message = 'Success';
+            if($this->request->getData('from')!='mobile'){
+                $this->Flash->error(__('The {0} has been deleted.', 'User'));
+                return $this->redirect(['action' => 'index']);
+            }
         } else {
+            $user->message = 'Fail';
+            $user->status = 0;
             $this->Flash->error(__('The {0} could not be deleted. Please, try again.', 'User'));
+            return $this->redirect(['action' => 'index']);
         }
-
-        return $this->redirect(['action' => 'index']);
     }
 }

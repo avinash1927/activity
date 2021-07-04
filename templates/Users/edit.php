@@ -33,7 +33,7 @@
                 echo $this->Form->control('mobile');
                 echo $this->Form->control('email');
                 echo $this->Form->control('is_enable');
-                echo $this->Form->control('is_trash');
+                //echo $this->Form->control('is_trash');
               ?>
             </div>
             <!-- /.box-body -->
