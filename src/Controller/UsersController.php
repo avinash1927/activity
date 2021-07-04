@@ -18,9 +18,16 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $users = $this->paginate($this->Users);
+        // $users = $this->paginate($this->Users);
 
-        $this->set(compact('users'));
+        // $this->set(compact('users'));
+
+        $users = $this->Users->find()->where(['is_trash' => 0])->order(['id' => 'DESC']);
+        $this->paginate = array(
+            'limit' => 10,
+        );
+        $this->set('users', $this->paginate($users));
+
     }
 
     /**
@@ -97,7 +104,14 @@ class UsersController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
+
+        $query = $this->Users->query();
+        $result = $query->update()
+                    ->set(['is_trash' => '1'])
+                    ->where(['id' => $id])
+                    ->execute();
+
+        if ($result) {
             $this->Flash->success(__('The {0} has been deleted.', 'User'));
         } else {
             $this->Flash->error(__('The {0} could not be deleted. Please, try again.', 'User'));

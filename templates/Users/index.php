@@ -36,16 +36,28 @@
                   <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('mobile') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('email') ?></th>
+                  <th scope="col">Status</th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
             </thead>
             <tbody>
-              <?php foreach ($users as $user): ?>
+              <?php
+                $sl = 0;
+               foreach ($users as $user): $sl++ ?>
                 <tr>
-                  <td><?= $this->Number->format($user->id) ?></td>
+                  <td><?= $sl ?></td>
                   <td><?= h($user->name) ?></td>
                   <td><?= h($user->mobile) ?></td>
                   <td><?= h($user->email) ?></td>
+                  <td>
+                    <?php
+                    if($user->is_enable == 1){
+                      echo '<p class="text-green">Active</p>';
+                    }else{
+                      echo '<p class="text-red">In Active</p>';
+                    }
+                    ?>
+                  </td>
                   <td class="actions text-right">
                       <?php //$this->Html->link(__('View'), ['action' => 'view', $user->id], ['class'=>'btn btn-info btn-xs']) ?>
                       <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class'=>'btn btn-warning btn-xs']) ?>
