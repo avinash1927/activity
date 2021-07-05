@@ -44,6 +44,10 @@ class GoalsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+        ]);
     }
 
     /**
@@ -59,19 +63,29 @@ class GoalsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->integer('userid')
-            ->allowEmptyString('userid');
+            ->scalar('goal_type')
+            ->maxLength('goal_type', 50)
+            ->allowEmptyString('goal_type');
 
         $validator
-            ->scalar('goaltype')
-            ->maxLength('goaltype', 50)
-            ->allowEmptyString('goaltype');
-
-        $validator
-            ->scalar('goalvalue')
-            ->maxLength('goalvalue', 50)
-            ->allowEmptyString('goalvalue');
+            ->scalar('goal_value')
+            ->maxLength('goal_value', 50)
+            ->allowEmptyString('goal_value');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
+
+        return $rules;
     }
 }

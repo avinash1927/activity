@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Watches Model
  *
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ *
  * @method \App\Model\Entity\Watch newEmptyEntity()
  * @method \App\Model\Entity\Watch newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Watch[] newEntities(array $data, array $options = [])
@@ -44,6 +46,13 @@ class WatchesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('Steps', [
+            'foreignKey' => 'watch_id',
+        ]);
     }
 
     /**
@@ -68,10 +77,20 @@ class WatchesTable extends Table
             ->maxLength('firmware_version', 50)
             ->allowEmptyString('firmware_version');
 
-        $validator
-            ->integer('userid')
-            ->allowEmptyString('userid');
-
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
+
+        return $rules;
     }
 }

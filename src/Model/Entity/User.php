@@ -14,8 +14,12 @@ use Cake\ORM\Entity;
  * @property string|null $email
  * @property bool|null $is_enable
  * @property bool|null $is_trash
+ * @property string|null $fcm_id
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
+ *
+ * @property \App\Model\Entity\Fcm $fcm
+ * @property \App\Model\Entity\Watch[] $watches
  */
 class User extends Entity
 {
@@ -34,7 +38,10 @@ class User extends Entity
         'email' => true,
         'is_enable' => true,
         'is_trash' => true,
+        'fcm_id' => true,
         'created' => true,
         'modified' => true,
+        'fcm' => true,
+        'watches' => true,
     ];
 }

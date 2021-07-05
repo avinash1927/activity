@@ -29,9 +29,9 @@
           <?php echo $this->Form->create($goal, ['role' => 'form']); ?>
             <div class="box-body">
               <?php
-                echo $this->Form->control('userid');
-                echo $this->Form->control('goaltype');
-                echo $this->Form->control('goalvalue');
+                echo $this->Form->control('user_id');
+                echo $this->Form->control('goal_type');
+                echo $this->Form->control('goal_value');
               ?>
             </div>
             <!-- /.box-body -->

@@ -33,9 +33,9 @@
             <thead>
               <tr>
                   <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('userid') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('goaltype') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('goalvalue') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('goal_type') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('goal_value') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
@@ -45,9 +45,9 @@
               <?php foreach ($goals as $goal): ?>
                 <tr>
                   <td><?= $this->Number->format($goal->id) ?></td>
-                  <td><?= $this->Number->format($goal->userid) ?></td>
-                  <td><?= h($goal->goaltype) ?></td>
-                  <td><?= h($goal->goalvalue) ?></td>
+                  <td><?= $this->Number->format($goal->user_id) ?></td>
+                  <td><?= h($goal->goal_type) ?></td>
+                  <td><?= h($goal->goal_value) ?></td>
                   <td><?= h($goal->created) ?></td>
                   <td><?= h($goal->modified) ?></td>
                   <td class="actions text-right">

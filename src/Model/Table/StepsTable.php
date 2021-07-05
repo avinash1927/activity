@@ -40,6 +40,13 @@ class StepsTable extends Table
         $this->setTable('steps');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('Watches', [
+            'foreignKey' => 'watch_id',
+        ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+        ]);
     }
 
     /**
@@ -78,14 +85,21 @@ class StepsTable extends Table
             ->maxLength('sdktime', 50)
             ->allowEmptyString('sdktime');
 
-        $validator
-            ->integer('watchid')
-            ->allowEmptyString('watchid');
-
-        $validator
-            ->integer('userid')
-            ->allowEmptyString('userid');
-
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn(['watch_id'], 'Watches'), ['errorField' => 'watch_id']);
+        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
+
+        return $rules;
     }
 }

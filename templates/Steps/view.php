@@ -30,10 +30,10 @@
             <dd><?= h($step->sdktime) ?></dd>
             <dt scope="row"><?= __('Id') ?></dt>
             <dd><?= $this->Number->format($step->id) ?></dd>
-            <dt scope="row"><?= __('Watchid') ?></dt>
-            <dd><?= $this->Number->format($step->watchid) ?></dd>
-            <dt scope="row"><?= __('Userid') ?></dt>
-            <dd><?= $this->Number->format($step->userid) ?></dd>
+            <dt scope="row"><?= __('Watch Id') ?></dt>
+            <dd><?= $this->Number->format($step->watch_id) ?></dd>
+            <dt scope="row"><?= __('User Id') ?></dt>
+            <dd><?= $this->Number->format($step->user_id) ?></dd>
             <dt scope="row"><?= __('Date') ?></dt>
             <dd><?= h($step->date) ?></dd>
           </dl>

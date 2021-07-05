@@ -11,9 +11,11 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string|null $name
  * @property string|null $firmware_version
- * @property int|null $userid
+ * @property int|null $user_id
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
+ *
+ * @property \App\Model\Entity\User $user
  */
 class Watch extends Entity
 {
@@ -29,8 +31,9 @@ class Watch extends Entity
     protected $_accessible = [
         'name' => true,
         'firmware_version' => true,
-        'userid' => true,
+        'user_id' => true,
         'created' => true,
         'modified' => true,
+        'user' => true,
     ];
 }

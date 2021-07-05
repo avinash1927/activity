@@ -11,6 +11,9 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
+ * @property \App\Model\Table\FcmsTable&\Cake\ORM\Association\BelongsTo $Fcms
+ * @property \App\Model\Table\WatchesTable&\Cake\ORM\Association\HasMany $Watches
+ *
  * @method \App\Model\Entity\User newEmptyEntity()
  * @method \App\Model\Entity\User newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
@@ -44,6 +47,19 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Fcms', [
+            'foreignKey' => 'fcm_id',
+        ]);
+        $this->hasMany('Goals', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('Steps', [
+            'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('Watches', [
+            'foreignKey' => 'user_id',
+        ]);
     }
 
     /**
@@ -58,19 +74,19 @@ class UsersTable extends Table
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
 
-        // $validator
-        //     ->scalar('name')
-        //     ->maxLength('name', 50)
-        //     ->allowEmptyString('name');
+        $validator
+            ->scalar('name')
+            ->maxLength('name', 50)
+            ->allowEmptyString('name');
 
-        // $validator
-        //     ->scalar('mobile')
-        //     ->maxLength('mobile', 10)
-        //     ->allowEmptyString('mobile');
+        $validator
+            ->scalar('mobile')
+            ->maxLength('mobile', 10)
+            ->allowEmptyString('mobile');
 
-        // $validator
-        //     ->email('email')
-        //     ->allowEmptyString('email');
+        $validator
+            ->email('email')
+            ->allowEmptyString('email');
 
         $validator
             ->boolean('is_enable')
@@ -93,6 +109,7 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
+        $rules->add($rules->existsIn(['fcm_id'], 'Fcms'), ['errorField' => 'fcm_id']);
 
         return $rules;
     }

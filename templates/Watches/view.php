@@ -24,10 +24,10 @@
             <dd><?= h($watch->name) ?></dd>
             <dt scope="row"><?= __('Firmware Version') ?></dt>
             <dd><?= h($watch->firmware_version) ?></dd>
+            <dt scope="row"><?= __('User') ?></dt>
+            <dd><?= $watch->has('user') ? $this->Html->link($watch->user->id, ['controller' => 'Users', 'action' => 'view', $watch->user->id]) : '' ?></dd>
             <dt scope="row"><?= __('Id') ?></dt>
             <dd><?= $this->Number->format($watch->id) ?></dd>
-            <dt scope="row"><?= __('Userid') ?></dt>
-            <dd><?= $this->Number->format($watch->userid) ?></dd>
             <dt scope="row"><?= __('Created') ?></dt>
             <dd><?= h($watch->created) ?></dd>
             <dt scope="row"><?= __('Modified') ?></dt>

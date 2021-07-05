@@ -20,14 +20,14 @@
         <!-- /.box-header -->
         <div class="box-body">
           <dl class="dl-horizontal">
-            <dt scope="row"><?= __('Goaltype') ?></dt>
-            <dd><?= h($goal->goaltype) ?></dd>
-            <dt scope="row"><?= __('Goalvalue') ?></dt>
-            <dd><?= h($goal->goalvalue) ?></dd>
+            <dt scope="row"><?= __('Goal Type') ?></dt>
+            <dd><?= h($goal->goal_type) ?></dd>
+            <dt scope="row"><?= __('Goal Value') ?></dt>
+            <dd><?= h($goal->goal_value) ?></dd>
             <dt scope="row"><?= __('Id') ?></dt>
             <dd><?= $this->Number->format($goal->id) ?></dd>
-            <dt scope="row"><?= __('Userid') ?></dt>
-            <dd><?= $this->Number->format($goal->userid) ?></dd>
+            <dt scope="row"><?= __('User Id') ?></dt>
+            <dd><?= $this->Number->format($goal->user_id) ?></dd>
             <dt scope="row"><?= __('Created') ?></dt>
             <dd><?= h($goal->created) ?></dd>
             <dt scope="row"><?= __('Modified') ?></dt>

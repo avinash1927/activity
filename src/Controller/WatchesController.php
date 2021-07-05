@@ -18,6 +18,9 @@ class WatchesController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Users'],
+        ];
         $watches = $this->paginate($this->Watches);
 
         $this->set(compact('watches'));
@@ -33,7 +36,7 @@ class WatchesController extends AppController
     public function view($id = null)
     {
         $watch = $this->Watches->get($id, [
-            'contain' => [],
+            'contain' => ['Users'],
         ]);
 
         $this->set(compact('watch'));
@@ -57,7 +60,8 @@ class WatchesController extends AppController
             }
             $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
         }
-        $this->set(compact('watch'));
+        $users = $this->Watches->Users->find('list', ['limit' => 200]);
+        $this->set(compact('watch', 'users'));
     }
 
 
@@ -82,7 +86,8 @@ class WatchesController extends AppController
             }
             $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
         }
-        $this->set(compact('watch'));
+        $users = $this->Watches->Users->find('list', ['limit' => 200]);
+        $this->set(compact('watch', 'users'));
     }
 
 

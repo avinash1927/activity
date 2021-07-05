@@ -14,8 +14,8 @@ use Cake\ORM\Entity;
  * @property string|null $calories
  * @property \Cake\I18n\FrozenDate|null $date
  * @property string|null $sdktime
- * @property int|null $watchid
- * @property int|null $userid
+ * @property int|null $watch_id
+ * @property int|null $user_id
  */
 class Step extends Entity
 {
@@ -34,7 +34,7 @@ class Step extends Entity
         'calories' => true,
         'date' => true,
         'sdktime' => true,
-        'watchid' => true,
-        'userid' => true,
+        'watch_id' => true,
+        'user_id' => true,
     ];
 }

@@ -9,9 +9,9 @@ use Cake\ORM\Entity;
  * Goal Entity
  *
  * @property int $id
- * @property int|null $userid
- * @property string|null $goaltype
- * @property string|null $goalvalue
+ * @property int|null $user_id
+ * @property string|null $goal_type
+ * @property string|null $goal_value
  * @property \Cake\I18n\FrozenDate|null $created
  * @property \Cake\I18n\FrozenDate|null $modified
  */
@@ -27,9 +27,9 @@ class Goal extends Entity
      * @var array
      */
     protected $_accessible = [
-        'userid' => true,
-        'goaltype' => true,
-        'goalvalue' => true,
+        'user_id' => true,
+        'goal_type' => true,
+        'goal_value' => true,
         'created' => true,
         'modified' => true,
     ];
