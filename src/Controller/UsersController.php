@@ -75,8 +75,17 @@ class UsersController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
             }else{
+                if($user->getErrors()){
+                    $errorMess = $user->getErrors();
+                    if(array_key_exists("mobile", $errorMess)){
+                        $user->status = 2;
+                    }else if(array_key_exists("email", $errorMess)){
+                        $user->status = 3;
+                    }else{
+                        $user->status = 0;
+                    }
+                }
                 $user->message = 'Fail';
-                $user->status = 0;
                 $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'User'));
             }
         }
@@ -147,5 +156,46 @@ class UsersController extends AppController
             $this->Flash->error(__('The {0} could not be deleted. Please, try again.', 'User'));
             return $this->redirect(['action' => 'index']);
         }
+    }
+
+    public function login()
+    {
+        if ($this->request->is('post')) {
+            // debug($this->request->getData());
+            // $user = $this->Auth->identify();
+            // // debug($user);exit;
+            // if ($user) {
+            //     $this->Auth->setUser($user);
+            //     return $this->redirect($this->Auth->redirectUrl());
+            // }
+            $this->Flash->error(__('Invalid username or password, try again'));
+        }
+    }
+
+    public function logout()
+    {
+        // return $this->redirect($this->Auth->logout());
+    }
+
+    public function loginMobile()
+    {
+         if ($this->request->is('post')) { 
+            $res = array();
+            $users = $this->Users->find('all', ['conditions'=>['Users.mobile'=>$this->request->getData('mobile')]])->first();
+
+            if($users){
+                $res['message'] = 'Users Available';
+                $res['status'] = 1;
+                $res['otp'] = '123456';
+                $userData = $users->toArray();
+                $users = $userData + $res;
+            }else{
+                $res['message'] = 'Users Not Available';
+                $res['status'] = 0;
+                $users = $res;
+            }
+        }
+
+        $this->set(compact('users'));
     }
 }

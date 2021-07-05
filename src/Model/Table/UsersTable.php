@@ -58,19 +58,19 @@ class UsersTable extends Table
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
 
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 50)
-            ->allowEmptyString('name');
+        // $validator
+        //     ->scalar('name')
+        //     ->maxLength('name', 50)
+        //     ->allowEmptyString('name');
 
-        $validator
-            ->scalar('mobile')
-            ->maxLength('mobile', 10)
-            ->allowEmptyString('mobile');
+        // $validator
+        //     ->scalar('mobile')
+        //     ->maxLength('mobile', 10)
+        //     ->allowEmptyString('mobile');
 
-        $validator
-            ->email('email')
-            ->allowEmptyString('email');
+        // $validator
+        //     ->email('email')
+        //     ->allowEmptyString('email');
 
         $validator
             ->boolean('is_enable')
