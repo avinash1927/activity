@@ -26,15 +26,14 @@
           </div>
           <!-- /.box-header -->
           <!-- form start -->
-          <?php echo $this->Form->create($user, ['role' => 'form']); ?>
+          <?php echo $this->Form->create($user, ['role' => 'form','autocomplete'=>'off']); ?>
             <div class="box-body">
               <?php
                 echo $this->Form->control('name');
                 echo $this->Form->control('mobile');
                 echo $this->Form->control('email');
                 echo $this->Form->control('is_enable');
-                echo $this->Form->control('is_trash');
-                echo $this->Form->control('fcm_id');
+                //echo $this->Form->control('is_trash');
               ?>
             </div>
             <!-- /.box-body -->

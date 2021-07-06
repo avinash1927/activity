@@ -26,8 +26,6 @@
             <dd><?= h($user->mobile) ?></dd>
             <dt scope="row"><?= __('Email') ?></dt>
             <dd><?= h($user->email) ?></dd>
-            <dt scope="row"><?= __('Fcm Id') ?></dt>
-            <dd><?= h($user->fcm_id) ?></dd>
             <dt scope="row"><?= __('Id') ?></dt>
             <dd><?= $this->Number->format($user->id) ?></dd>
             <dt scope="row"><?= __('Created') ?></dt>
@@ -44,6 +42,92 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-solid">
+        <div class="box-header with-border">
+          <i class="fa fa-share-alt"></i>
+          <h3 class="box-title"><?= __('Goals') ?></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <?php if (!empty($user->goals)): ?>
+          <table class="table table-hover">
+              <tr>
+                    <th scope="col"><?= __('Id') ?></th>
+                    <th scope="col"><?= __('User Id') ?></th>
+                    <th scope="col"><?= __('Goal Type') ?></th>
+                    <th scope="col"><?= __('Goal Value') ?></th>
+                    <th scope="col"><?= __('Created') ?></th>
+                    <th scope="col"><?= __('Modified') ?></th>
+                    <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
+              </tr>
+              <?php foreach ($user->goals as $goals): ?>
+              <tr>
+                    <td><?= h($goals->id) ?></td>
+                    <td><?= h($goals->user_id) ?></td>
+                    <td><?= h($goals->goal_type) ?></td>
+                    <td><?= h($goals->goal_value) ?></td>
+                    <td><?= h($goals->created) ?></td>
+                    <td><?= h($goals->modified) ?></td>
+                      <td class="actions text-right">
+                      <?= $this->Html->link(__('View'), ['controller' => 'Goals', 'action' => 'view', $goals->id], ['class'=>'btn btn-info btn-xs']) ?>
+                      <?= $this->Html->link(__('Edit'), ['controller' => 'Goals', 'action' => 'edit', $goals->id], ['class'=>'btn btn-warning btn-xs']) ?>
+                      <?= $this->Form->postLink(__('Delete'), ['controller' => 'Goals', 'action' => 'delete', $goals->id], ['confirm' => __('Are you sure you want to delete # {0}?', $goals->id), 'class'=>'btn btn-danger btn-xs']) ?>
+                  </td>
+              </tr>
+              <?php endforeach; ?>
+          </table>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-solid">
+        <div class="box-header with-border">
+          <i class="fa fa-share-alt"></i>
+          <h3 class="box-title"><?= __('Steps') ?></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <?php if (!empty($user->steps)): ?>
+          <table class="table table-hover">
+              <tr>
+                    <th scope="col"><?= __('Id') ?></th>
+                    <th scope="col"><?= __('Stepscount') ?></th>
+                    <th scope="col"><?= __('Distance') ?></th>
+                    <th scope="col"><?= __('Calories') ?></th>
+                    <th scope="col"><?= __('Date') ?></th>
+                    <th scope="col"><?= __('Sdktime') ?></th>
+                    <th scope="col"><?= __('Watch Id') ?></th>
+                    <th scope="col"><?= __('User Id') ?></th>
+                    <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
+              </tr>
+              <?php foreach ($user->steps as $steps): ?>
+              <tr>
+                    <td><?= h($steps->id) ?></td>
+                    <td><?= h($steps->stepscount) ?></td>
+                    <td><?= h($steps->distance) ?></td>
+                    <td><?= h($steps->calories) ?></td>
+                    <td><?= h($steps->date) ?></td>
+                    <td><?= h($steps->sdktime) ?></td>
+                    <td><?= h($steps->watch_id) ?></td>
+                    <td><?= h($steps->user_id) ?></td>
+                      <td class="actions text-right">
+                      <?= $this->Html->link(__('View'), ['controller' => 'Steps', 'action' => 'view', $steps->id], ['class'=>'btn btn-info btn-xs']) ?>
+                      <?= $this->Html->link(__('Edit'), ['controller' => 'Steps', 'action' => 'edit', $steps->id], ['class'=>'btn btn-warning btn-xs']) ?>
+                      <?= $this->Form->postLink(__('Delete'), ['controller' => 'Steps', 'action' => 'delete', $steps->id], ['confirm' => __('Are you sure you want to delete # {0}?', $steps->id), 'class'=>'btn btn-danger btn-xs']) ?>
+                  </td>
+              </tr>
+              <?php endforeach; ?>
+          </table>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-12">
       <div class="box box-solid">

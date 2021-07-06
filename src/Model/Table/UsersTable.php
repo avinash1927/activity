@@ -11,7 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
- * @property \App\Model\Table\FcmsTable&\Cake\ORM\Association\BelongsTo $Fcms
+ * @property \App\Model\Table\GoalsTable&\Cake\ORM\Association\HasMany $Goals
+ * @property \App\Model\Table\StepsTable&\Cake\ORM\Association\HasMany $Steps
  * @property \App\Model\Table\WatchesTable&\Cake\ORM\Association\HasMany $Watches
  *
  * @method \App\Model\Entity\User newEmptyEntity()
@@ -48,9 +49,6 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Fcms', [
-            'foreignKey' => 'fcm_id',
-        ]);
         $this->hasMany('Goals', [
             'foreignKey' => 'user_id',
         ]);
@@ -109,7 +107,6 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
-        $rules->add($rules->existsIn(['fcm_id'], 'Fcms'), ['errorField' => 'fcm_id']);
 
         return $rules;
     }

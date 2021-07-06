@@ -23,7 +23,6 @@ class UsersFixture extends TestFixture
         'email' => ['type' => 'string', 'length' => 25, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
         'is_enable' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => '1', 'comment' => '', 'precision' => null],
         'is_trash' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => '0', 'comment' => '', 'precision' => null],
-        'fcm_id' => ['type' => 'string', 'length' => 200, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
         'modified' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
         '_constraints' => [
@@ -50,9 +49,8 @@ class UsersFixture extends TestFixture
                 'email' => 'Lorem ipsum dolor sit a',
                 'is_enable' => 1,
                 'is_trash' => 1,
-                'fcm_id' => 'Lorem ipsum dolor sit amet',
-                'created' => '2021-07-05 16:50:41',
-                'modified' => '2021-07-05 16:50:41',
+                'created' => '2021-07-05 17:09:56',
+                'modified' => '2021-07-05 17:09:56',
             ],
         ];
         parent::init();
