@@ -134,6 +134,7 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
+        $id = ($this->request->getData('id')!='')?$this->request->getData('id'):$id;
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
 

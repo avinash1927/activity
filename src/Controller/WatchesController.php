@@ -54,13 +54,29 @@ class WatchesController extends AppController
         if ($this->request->is('post')) {
             $watch = $this->Watches->patchEntity($watch, $this->request->getData());
             if ($this->Watches->save($watch)) {
-                $this->Flash->success(__('The {0} has been saved.', 'Watch'));
 
-                return $this->redirect(['action' => 'index']);
+                $watch->status = 1;
+                $watch->message = 'Success';
+                if($this->request->getData('from')!='mobile'){
+                    $this->Flash->success(__('The {0} has been saved.', 'Watch'));
+                    return $this->redirect(['action' => 'index']);
+                }
+            }else{
+                if($watch->getErrors()){
+                    $errorMess = $watch->getErrors();
+                    if(array_key_exists("mobile", $errorMess)){
+                        $watch->status = 2;
+                    }else if(array_key_exists("email", $errorMess)){
+                        $watch->status = 3;
+                    }else{
+                        $watch->status = 0;
+                    }
+                }
+                $watch->message = 'Fail';
+                $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
             }
-            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
         }
-        $users = $this->Watches->Users->find('list', ['limit' => 200]);
+        $users = $this->Watches->Users->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
         $this->set(compact('watch', 'users'));
     }
 
@@ -74,19 +90,36 @@ class WatchesController extends AppController
      */
     public function edit($id = null)
     {
+        $id = ($this->request->getData('id')!='')?$this->request->getData('id'):$id;
         $watch = $this->Watches->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $watch = $this->Watches->patchEntity($watch, $this->request->getData());
             if ($this->Watches->save($watch)) {
-                $this->Flash->success(__('The {0} has been saved.', 'Watch'));
 
-                return $this->redirect(['action' => 'index']);
+                $watch->status = 1;
+                $watch->message = 'Success';
+                if($this->request->getData('from')!='mobile'){
+                    $this->Flash->success(__('The {0} has been saved.', 'Watch'));
+                    return $this->redirect(['action' => 'index']);
+                }
+            }else{
+                if($watch->getErrors()){
+                    $errorMess = $watch->getErrors();
+                    if(array_key_exists("mobile", $errorMess)){
+                        $watch->status = 2;
+                    }else if(array_key_exists("email", $errorMess)){
+                        $watch->status = 3;
+                    }else{
+                        $watch->status = 0;
+                    }
+                }
+                $watch->message = 'Fail';
+                $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
             }
-            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
         }
-        $users = $this->Watches->Users->find('list', ['limit' => 200]);
+        $users = $this->Watches->Users->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
         $this->set(compact('watch', 'users'));
     }
 
@@ -100,6 +133,7 @@ class WatchesController extends AppController
      */
     public function delete($id = null)
     {
+        $id = ($this->request->getData('id')!='')?$this->request->getData('id'):$id;
         $this->request->allowMethod(['post', 'delete']);
         $watch = $this->Watches->get($id);
         if ($this->Watches->delete($watch)) {
