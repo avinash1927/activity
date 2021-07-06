@@ -18,6 +18,9 @@ class StepsController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Watches', 'Users'],
+        ];
         $steps = $this->paginate($this->Steps);
 
         $this->set(compact('steps'));
@@ -33,7 +36,7 @@ class StepsController extends AppController
     public function view($id = null)
     {
         $step = $this->Steps->get($id, [
-            'contain' => [],
+            'contain' => ['Watches', 'Users'],
         ]);
 
         $this->set(compact('step'));
@@ -57,7 +60,9 @@ class StepsController extends AppController
             }
             $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Step'));
         }
-        $this->set(compact('step'));
+        $watches = $this->Steps->Watches->find('list', ['limit' => 200]);
+        $users = $this->Steps->Users->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
+        $this->set(compact('step', 'watches', 'users'));
     }
 
 
@@ -82,7 +87,9 @@ class StepsController extends AppController
             }
             $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Step'));
         }
-        $this->set(compact('step'));
+        $watches = $this->Steps->Watches->find('list', ['limit' => 200]);
+        $users = $this->Steps->Users->find('list', ['limit' => 200]);
+        $this->set(compact('step', 'watches', 'users'));
     }
 
 

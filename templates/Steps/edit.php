@@ -34,8 +34,8 @@
                 echo $this->Form->control('calories');
                 echo $this->Form->control('date', ['empty' => true]);
                 echo $this->Form->control('sdktime');
-                echo $this->Form->control('watch_id');
-                echo $this->Form->control('user_id');
+                echo $this->Form->control('watch_id', ['options' => $watches, 'empty' => true]);
+                echo $this->Form->control('user_id', ['options' => $users, 'empty' => true]);
               ?>
             </div>
             <!-- /.box-body -->

@@ -40,6 +40,8 @@
                   <th scope="col"><?= $this->Paginator->sort('sdktime') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('watch_id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('created') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
             </thead>
@@ -54,6 +56,8 @@
                   <td><?= h($step->sdktime) ?></td>
                   <td><?= $this->Number->format($step->watch_id) ?></td>
                   <td><?= $this->Number->format($step->user_id) ?></td>
+                  <td><?= h($step->created) ?></td>
+                  <td><?= h($step->modified) ?></td>
                   <td class="actions text-right">
                       <?= $this->Html->link(__('View'), ['action' => 'view', $step->id], ['class'=>'btn btn-info btn-xs']) ?>
                       <?= $this->Html->link(__('Edit'), ['action' => 'edit', $step->id], ['class'=>'btn btn-warning btn-xs']) ?>

@@ -28,14 +28,18 @@
             <dd><?= h($step->calories) ?></dd>
             <dt scope="row"><?= __('Sdktime') ?></dt>
             <dd><?= h($step->sdktime) ?></dd>
+            <dt scope="row"><?= __('Watch') ?></dt>
+            <dd><?= $step->has('watch') ? $this->Html->link($step->watch->name, ['controller' => 'Watches', 'action' => 'view', $step->watch->id]) : '' ?></dd>
+            <dt scope="row"><?= __('User') ?></dt>
+            <dd><?= $step->has('user') ? $this->Html->link($step->user->id, ['controller' => 'Users', 'action' => 'view', $step->user->id]) : '' ?></dd>
             <dt scope="row"><?= __('Id') ?></dt>
             <dd><?= $this->Number->format($step->id) ?></dd>
-            <dt scope="row"><?= __('Watch Id') ?></dt>
-            <dd><?= $this->Number->format($step->watch_id) ?></dd>
-            <dt scope="row"><?= __('User Id') ?></dt>
-            <dd><?= $this->Number->format($step->user_id) ?></dd>
             <dt scope="row"><?= __('Date') ?></dt>
             <dd><?= h($step->date) ?></dd>
+            <dt scope="row"><?= __('Created') ?></dt>
+            <dd><?= h($step->created) ?></dd>
+            <dt scope="row"><?= __('Modified') ?></dt>
+            <dd><?= h($step->modified) ?></dd>
           </dl>
         </div>
       </div>

@@ -29,7 +29,7 @@
           <?php echo $this->Form->create($goal, ['role' => 'form']); ?>
             <div class="box-body">
               <?php
-                echo $this->Form->control('user_id');
+                echo $this->Form->control('user_id', ['options' => $users, 'empty' => '--Select--']);
                 echo $this->Form->control('goal_type');
                 echo $this->Form->control('goal_value');
               ?>

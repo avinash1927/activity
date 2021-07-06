@@ -14,6 +14,8 @@ use Cake\ORM\Entity;
  * @property string|null $goal_value
  * @property \Cake\I18n\FrozenDate|null $created
  * @property \Cake\I18n\FrozenDate|null $modified
+ *
+ * @property \App\Model\Entity\User $user
  */
 class Goal extends Entity
 {
@@ -32,5 +34,6 @@ class Goal extends Entity
         'goal_value' => true,
         'created' => true,
         'modified' => true,
+        'user' => true,
     ];
 }

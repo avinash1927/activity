@@ -16,6 +16,11 @@ use Cake\ORM\Entity;
  * @property string|null $sdktime
  * @property int|null $watch_id
  * @property int|null $user_id
+ * @property \Cake\I18n\FrozenTime|null $created
+ * @property \Cake\I18n\FrozenTime|null $modified
+ *
+ * @property \App\Model\Entity\Watch $watch
+ * @property \App\Model\Entity\User $user
  */
 class Step extends Entity
 {
@@ -36,5 +41,9 @@ class Step extends Entity
         'sdktime' => true,
         'watch_id' => true,
         'user_id' => true,
+        'created' => true,
+        'modified' => true,
+        'watch' => true,
+        'user' => true,
     ];
 }

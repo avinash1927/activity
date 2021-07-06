@@ -45,8 +45,8 @@ class GoalsFixture extends TestFixture
                 'user_id' => 1,
                 'goal_type' => 'Lorem ipsum dolor sit amet',
                 'goal_value' => 'Lorem ipsum dolor sit amet',
-                'created' => '2021-07-05',
-                'modified' => '2021-07-05',
+                'created' => '2021-07-06',
+                'modified' => '2021-07-06',
             ],
         ];
         parent::init();

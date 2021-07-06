@@ -11,6 +11,9 @@ use Cake\Validation\Validator;
 /**
  * Steps Model
  *
+ * @property \App\Model\Table\WatchesTable&\Cake\ORM\Association\BelongsTo $Watches
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ *
  * @method \App\Model\Entity\Step newEmptyEntity()
  * @method \App\Model\Entity\Step newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Step[] newEntities(array $data, array $options = [])
@@ -24,6 +27,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Step[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method \App\Model\Entity\Step[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\Step[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class StepsTable extends Table
 {
@@ -40,6 +45,8 @@ class StepsTable extends Table
         $this->setTable('steps');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('Watches', [
             'foreignKey' => 'watch_id',

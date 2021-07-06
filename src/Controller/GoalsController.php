@@ -18,6 +18,9 @@ class GoalsController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Users'],
+        ];
         $goals = $this->paginate($this->Goals);
 
         $this->set(compact('goals'));
@@ -33,7 +36,7 @@ class GoalsController extends AppController
     public function view($id = null)
     {
         $goal = $this->Goals->get($id, [
-            'contain' => [],
+            'contain' => ['Users'],
         ]);
 
         $this->set(compact('goal'));
@@ -57,7 +60,8 @@ class GoalsController extends AppController
             }
             $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Goal'));
         }
-        $this->set(compact('goal'));
+        $users = $this->Goals->Users->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
+        $this->set(compact('goal', 'users'));
     }
 
 
@@ -82,7 +86,8 @@ class GoalsController extends AppController
             }
             $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Goal'));
         }
-        $this->set(compact('goal'));
+        $users = $this->Goals->Users->find('list', ['limit' => 200]);
+        $this->set(compact('goal', 'users'));
     }
 
 
