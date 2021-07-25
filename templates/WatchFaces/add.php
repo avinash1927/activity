@@ -1,13 +1,13 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Watch $watch
+ * @var \App\Model\Entity\WatchFace $watchFace
  */
 ?>
 <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Watch
+      Watch Face
       <small><?php echo __('Add'); ?></small>
     </h1>
     <ol class="breadcrumb">
@@ -26,12 +26,12 @@
           </div>
           <!-- /.box-header -->
           <!-- form start -->
-          <?php echo $this->Form->create($watch, ['role' => 'form']); ?>
+          <?php echo $this->Form->create($watchFace, ['type'=>'file']); ?>
             <div class="box-body">
               <?php
+                echo $this->Form->control('watch_id', ['options' => $watches, 'empty' => '--Select--']);
                 echo $this->Form->control('user_id', ['options' => $users, 'empty' => '--Select--']);
-                echo $this->Form->control('name');
-                echo $this->Form->control('firmware_version');
+                echo $this->Form->control('upload_file',['type' => 'file']);
               ?>
             </div>
             <!-- /.box-body -->

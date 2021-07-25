@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\WatchesTable;
+use App\Model\Table\WatchFacesTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\WatchesTable Test Case
+ * App\Model\Table\WatchFacesTable Test Case
  */
-class WatchesTableTest extends TestCase
+class WatchFacesTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\WatchesTable
+     * @var \App\Model\Table\WatchFacesTable
      */
-    protected $Watches;
+    protected $WatchFaces;
 
     /**
      * Fixtures
@@ -24,9 +24,9 @@ class WatchesTableTest extends TestCase
      * @var array
      */
     protected $fixtures = [
-        'app.Watches',
-        'app.Steps',
         'app.WatchFaces',
+        'app.Watches',
+        'app.Users',
     ];
 
     /**
@@ -37,8 +37,8 @@ class WatchesTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Watches') ? [] : ['className' => WatchesTable::class];
-        $this->Watches = $this->getTableLocator()->get('Watches', $config);
+        $config = $this->getTableLocator()->exists('WatchFaces') ? [] : ['className' => WatchFacesTable::class];
+        $this->WatchFaces = $this->getTableLocator()->get('WatchFaces', $config);
     }
 
     /**
@@ -48,7 +48,7 @@ class WatchesTableTest extends TestCase
      */
     public function tearDown(): void
     {
-        unset($this->Watches);
+        unset($this->WatchFaces);
 
         parent::tearDown();
     }
@@ -59,6 +59,16 @@ class WatchesTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     */
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

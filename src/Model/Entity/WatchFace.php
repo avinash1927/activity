@@ -6,19 +6,19 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Watch Entity
+ * WatchFace Entity
  *
  * @property int $id
+ * @property int|null $watch_id
  * @property int|null $user_id
- * @property string|null $name
- * @property string|null $firmware_version
+ * @property string|null $upload_file
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
- * @property \App\Model\Entity\Step[] $steps
- * @property \App\Model\Entity\WatchFace[] $watch_faces
+ * @property \App\Model\Entity\Watch $watch
+ * @property \App\Model\Entity\User $user
  */
-class Watch extends Entity
+class WatchFace extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -30,12 +30,12 @@ class Watch extends Entity
      * @var array
      */
     protected $_accessible = [
+        'watch_id' => true,
         'user_id' => true,
-        'name' => true,
-        'firmware_version' => true,
+        'upload_file' => true,
         'created' => true,
         'modified' => true,
-        'steps' => true,
-        'watch_faces' => true,
+        'watch' => true,
+        'user' => true,
     ];
 }

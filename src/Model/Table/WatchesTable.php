@@ -11,7 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Watches Model
  *
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\StepsTable&\Cake\ORM\Association\HasMany $Steps
+ * @property \App\Model\Table\WatchFacesTable&\Cake\ORM\Association\HasMany $WatchFaces
  *
  * @method \App\Model\Entity\Watch newEmptyEntity()
  * @method \App\Model\Entity\Watch newEntity(array $data, array $options = [])
@@ -51,6 +52,9 @@ class WatchesTable extends Table
             'foreignKey' => 'user_id',
         ]);
         $this->hasMany('Steps', [
+            'foreignKey' => 'watch_id',
+        ]);
+        $this->hasMany('WatchFaces', [
             'foreignKey' => 'watch_id',
         ]);
     }

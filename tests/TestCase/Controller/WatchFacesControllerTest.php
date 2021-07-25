@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\WatchesController;
+use App\Controller\WatchFacesController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\WatchesController Test Case
+ * App\Controller\WatchFacesController Test Case
  *
- * @uses \App\Controller\WatchesController
+ * @uses \App\Controller\WatchFacesController
  */
-class WatchesControllerTest extends TestCase
+class WatchFacesControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -22,9 +22,9 @@ class WatchesControllerTest extends TestCase
      * @var array
      */
     protected $fixtures = [
-        'app.Watches',
-        'app.Steps',
         'app.WatchFaces',
+        'app.Watches',
+        'app.Users',
     ];
 
     /**

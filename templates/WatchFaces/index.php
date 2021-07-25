@@ -1,7 +1,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Watches
+    Watch Faces
 
     <div class="pull-right"><?php echo $this->Html->link(__('New'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
   </h1>
@@ -33,22 +33,22 @@
             <thead>
               <tr>
                   <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('watch_id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('firmware_version') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('upload_file') ?></th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
             </thead>
             <tbody>
-              <?php foreach ($watches as $watch): ?>
+              <?php foreach ($watchFaces as $watchFace): ?>
                 <tr>
-                  <td><?= $this->Number->format($watch->id) ?></td>
-                  <td><?= $this->Number->format($watch->user_id) ?></td>
-                  <td><?= h($watch->name) ?></td>
-                  <td><?= h($watch->firmware_version) ?></td>
+                  <td><?= $this->Number->format($watchFace->id) ?></td>
+                  <td><?= $this->Number->format($watchFace->watch_id) ?></td>
+                  <td><?= $this->Number->format($watchFace->user_id) ?></td>
+                  <td><?= h($watchFace->upload_file) ?></td>
                   <td class="actions text-right">
-                      <?= $this->Html->link(__('Edit'), ['action' => 'edit', $watch->id], ['class'=>'btn btn-warning btn-xs']) ?>
-                      <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $watch->id], ['confirm' => __('Are you sure you want to delete # {0}?', $watch->id), 'class'=>'btn btn-danger btn-xs']) ?>
+                      <?= $this->Html->link(__('Edit'), ['action' => 'edit', $watchFace->id], ['class'=>'btn btn-warning btn-xs']) ?>
+                      <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $watchFace->id], ['confirm' => __('Are you sure you want to delete # {0}?', $watchFace->id), 'class'=>'btn btn-danger btn-xs']) ?>
                   </td>
                 </tr>
               <?php endforeach; ?>

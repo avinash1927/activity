@@ -29,9 +29,9 @@
           <?php echo $this->Form->create($watch, ['role' => 'form']); ?>
             <div class="box-body">
               <?php
+                echo $this->Form->control('user_id', ['options' => $users, 'empty' => '--Select--']);
                 echo $this->Form->control('name');
                 echo $this->Form->control('firmware_version');
-                echo $this->Form->control('user_id', ['options' => $users, 'empty' => "--Select--"]);
               ?>
             </div>
             <!-- /.box-body -->
