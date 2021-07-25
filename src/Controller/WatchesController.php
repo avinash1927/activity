@@ -51,29 +51,14 @@ class WatchesController extends AppController
         if ($this->request->is('post')) {
             $watch = $this->Watches->patchEntity($watch, $this->request->getData());
             if ($this->Watches->save($watch)) {
+                $this->Flash->success(__('The {0} has been saved.', 'Watch'));
 
-                $watch->status = 1;
-                $watch->message = 'Success';
-                if($this->request->getData('from')!='mobile'){
-                    $this->Flash->success(__('The {0} has been saved.', 'Watch'));
-                    return $this->redirect(['action' => 'index']);
-                }
-            }else{
-                if($watch->getErrors()){
-                    $errorMess = $watch->getErrors();
-                    if(array_key_exists("mobile", $errorMess)){
-                        $watch->status = 2;
-                    }else if(array_key_exists("email", $errorMess)){
-                        $watch->status = 3;
-                    }else{
-                        $watch->status = 0;
-                    }
-                }
-                $watch->message = 'Fail';
-                $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
+                return $this->redirect(['action' => 'index']);
             }
+            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
         }
-        $this->set(compact('watch'));
+        $users = $this->Watches->Users->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
+        $this->set(compact('watch','users'));
     }
 
 
@@ -92,28 +77,14 @@ class WatchesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $watch = $this->Watches->patchEntity($watch, $this->request->getData());
             if ($this->Watches->save($watch)) {
-                $watch->status = 1;
-                $watch->message = 'Success';
-                if($this->request->getData('from')!='mobile'){
-                    $this->Flash->success(__('The {0} has been saved.', 'Watch'));
-                    return $this->redirect(['action' => 'index']);
-                }
-            }else{
-                if($watch->getErrors()){
-                    $errorMess = $watch->getErrors();
-                    if(array_key_exists("mobile", $errorMess)){
-                        $watch->status = 2;
-                    }else if(array_key_exists("email", $errorMess)){
-                        $watch->status = 3;
-                    }else{
-                        $watch->status = 0;
-                    }
-                }
-                $watch->message = 'Fail';
-                $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
+                $this->Flash->success(__('The {0} has been saved.', 'Watch'));
+
+                return $this->redirect(['action' => 'index']);
             }
+            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
         }
-        $this->set(compact('watch'));
+        $users = $this->Watches->Users->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
+        $this->set(compact('watch','users'));
     }
 
 
@@ -129,17 +100,11 @@ class WatchesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $watch = $this->Watches->get($id);
         if ($this->Watches->delete($watch)) {
-            $watch->status = 1;
-            $watch->message = 'Success';
-            if($this->request->getData('from')!='mobile'){
-                $this->Flash->error(__('The {0} has been deleted.', 'Watch'));
-                return $this->redirect(['action' => 'index']);
-            }
+            $this->Flash->success(__('The {0} has been deleted.', 'Watch'));
         } else {
-            $watch->message = 'Fail';
-            $watch->status = 0;
             $this->Flash->error(__('The {0} could not be deleted. Please, try again.', 'Watch'));
-            return $this->redirect(['action' => 'index']);
         }
+
+        return $this->redirect(['action' => 'index']);
     }
 }

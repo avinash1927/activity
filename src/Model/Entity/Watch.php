@@ -9,6 +9,7 @@ use Cake\ORM\Entity;
  * Watch Entity
  *
  * @property int $id
+ * @property int|null $user_id
  * @property string|null $name
  * @property string|null $firmware_version
  * @property \Cake\I18n\FrozenTime|null $created
@@ -29,6 +30,7 @@ class Watch extends Entity
      * @var array
      */
     protected $_accessible = [
+        'user_id' => true,
         'name' => true,
         'firmware_version' => true,
         'created' => true,

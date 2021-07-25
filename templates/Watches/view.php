@@ -26,6 +26,8 @@
             <dd><?= h($watch->firmware_version) ?></dd>
             <dt scope="row"><?= __('Id') ?></dt>
             <dd><?= $this->Number->format($watch->id) ?></dd>
+            <dt scope="row"><?= __('User Id') ?></dt>
+            <dd><?= $this->Number->format($watch->user_id) ?></dd>
             <dt scope="row"><?= __('Created') ?></dt>
             <dd><?= h($watch->created) ?></dd>
             <dt scope="row"><?= __('Modified') ?></dt>
@@ -99,9 +101,8 @@
               <tr>
                     <th scope="col"><?= __('Id') ?></th>
                     <th scope="col"><?= __('Watch Id') ?></th>
-                    <th scope="col"><?= __('Preview') ?></th>
-                    <th scope="col"><?= __('File') ?></th>
-                    <th scope="col"><?= __('Is Enable') ?></th>
+                    <th scope="col"><?= __('User Id') ?></th>
+                    <th scope="col"><?= __('Upload File') ?></th>
                     <th scope="col"><?= __('Created') ?></th>
                     <th scope="col"><?= __('Modified') ?></th>
                     <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
@@ -110,9 +111,8 @@
               <tr>
                     <td><?= h($watchFaces->id) ?></td>
                     <td><?= h($watchFaces->watch_id) ?></td>
-                    <td><?= h($watchFaces->preview) ?></td>
-                    <td><?= h($watchFaces->file) ?></td>
-                    <td><?= h($watchFaces->is_enable) ?></td>
+                    <td><?= h($watchFaces->user_id) ?></td>
+                    <td><?= h($watchFaces->upload_file) ?></td>
                     <td><?= h($watchFaces->created) ?></td>
                     <td><?= h($watchFaces->modified) ?></td>
                       <td class="actions text-right">

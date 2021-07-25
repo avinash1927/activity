@@ -18,6 +18,7 @@ class WatchesFixture extends TestFixture
     // phpcs:disable
     public $fields = [
         'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
+        'user_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'name' => ['type' => 'string', 'length' => 50, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
         'firmware_version' => ['type' => 'string', 'length' => 50, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
@@ -41,10 +42,11 @@ class WatchesFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
+                'user_id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'firmware_version' => 'Lorem ipsum dolor sit amet',
-                'created' => '2021-07-25 15:56:09',
-                'modified' => '2021-07-25 15:56:09',
+                'created' => '2021-07-25 17:04:19',
+                'modified' => '2021-07-25 17:04:19',
             ],
         ];
         parent::init();

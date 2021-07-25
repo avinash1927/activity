@@ -48,6 +48,9 @@ class WatchesTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+        ]);
         $this->hasMany('Steps', [
             'foreignKey' => 'watch_id',
         ]);
@@ -79,5 +82,19 @@ class WatchesTable extends Table
             ->allowEmptyString('firmware_version');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
+
+        return $rules;
     }
 }

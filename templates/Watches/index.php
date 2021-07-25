@@ -33,6 +33,7 @@
             <thead>
               <tr>
                   <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('firmware_version') ?></th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
@@ -42,6 +43,7 @@
               <?php foreach ($watches as $watch): ?>
                 <tr>
                   <td><?= $this->Number->format($watch->id) ?></td>
+                  <td><?= $this->Number->format($watch->user_id) ?></td>
                   <td><?= h($watch->name) ?></td>
                   <td><?= h($watch->firmware_version) ?></td>
                   <td class="actions text-right">
