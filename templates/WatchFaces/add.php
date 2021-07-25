@@ -26,12 +26,12 @@
           </div>
           <!-- /.box-header -->
           <!-- form start -->
-          <?php echo $this->Form->create($watchFace, ['role' => 'form']); ?>
+          <?php echo $this->Form->create($watchFace, ['type'=>'file']); ?>
             <div class="box-body">
               <?php
-                echo $this->Form->control('watch_id', ['options' => $watches, 'empty' => true]);
-                echo $this->Form->control('user_id', ['options' => $users, 'empty' => true]);
-                echo $this->Form->control('upload_file');
+                echo $this->Form->control('watch_id', ['options' => $watches, 'empty' => '--Select--']);
+                echo $this->Form->control('user_id', ['options' => $users, 'empty' => '--Select--']);
+                echo $this->Form->control('upload_file',['type' => 'file']);
               ?>
             </div>
             <!-- /.box-body -->

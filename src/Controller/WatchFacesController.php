@@ -53,6 +53,25 @@ class WatchFacesController extends AppController
         $watchFace = $this->WatchFaces->newEmptyEntity();
         if ($this->request->is('post')) {
             $watchFace = $this->WatchFaces->patchEntity($watchFace, $this->request->getData());
+
+            $postFile = $this->request->getData('upload_file');
+            if ($postFile->getClientFilename()!='') {
+                $name = rand().$postFile->getClientFilename();
+                
+                $type = $postFile->getClientMediaType();
+                $targetPath = WWW_ROOT. 'img'. DS . 'document'. DS. $name;
+                if ($type == 'image/jpeg' || $type == 'image/jpg' || $type == 'image/png') {
+                    if (!empty($name)) {
+                        if ($postFile->getSize() > 0 && $postFile->getError() == 0) {
+                            $postFile->moveTo($targetPath); 
+                            $watchFace->upload_file = $name;
+                        }
+                    }
+                }
+            }else{
+                unset($watchFace->upload_file);
+            }
+
             if ($this->WatchFaces->save($watchFace)) {
                 $this->Flash->success(__('The {0} has been saved.', 'Watch Face'));
 
@@ -60,8 +79,9 @@ class WatchFacesController extends AppController
             }
             $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch Face'));
         }
-        $watches = $this->WatchFaces->Watches->find('list', ['limit' => 200]);
-        $users = $this->WatchFaces->Users->find('list', ['limit' => 200]);
+        $watches = $this->WatchFaces->Watches->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
+        $users = $this->WatchFaces->Users->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
+
         $this->set(compact('watchFace', 'watches', 'users'));
     }
 
