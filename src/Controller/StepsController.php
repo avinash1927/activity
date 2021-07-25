@@ -54,11 +54,26 @@ class StepsController extends AppController
         if ($this->request->is('post')) {
             $step = $this->Steps->patchEntity($step, $this->request->getData());
             if ($this->Steps->save($step)) {
-                $this->Flash->success(__('The {0} has been saved.', 'Step'));
-
-                return $this->redirect(['action' => 'index']);
+                $step->status = 1;
+                $step->message = 'Success';
+                if($this->request->getData('from')!='mobile'){
+                    $this->Flash->success(__('The {0} has been saved.', 'Step'));
+                    return $this->redirect(['action' => 'index']);
+                };
+            }else{
+                if($step->getErrors()){
+                    $errorMess = $step->getErrors();
+                    if(array_key_exists("mobile", $errorMess)){
+                        $step->status = 2;
+                    }else if(array_key_exists("email", $errorMess)){
+                        $step->status = 3;
+                    }else{
+                        $step->status = 0;
+                    }
+                }
+                $step->message = 'Fail';
+                $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Step'));
             }
-            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Step'));
         }
         $watches = $this->Steps->Watches->find('list', ['limit' => 200]);
         $users = $this->Steps->Users->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
@@ -81,11 +96,26 @@ class StepsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $step = $this->Steps->patchEntity($step, $this->request->getData());
             if ($this->Steps->save($step)) {
-                $this->Flash->success(__('The {0} has been saved.', 'Step'));
-
-                return $this->redirect(['action' => 'index']);
+                $step->status = 1;
+                $step->message = 'Success';
+                if($this->request->getData('from')!='mobile'){
+                    $this->Flash->success(__('The {0} has been saved.', 'Step'));
+                    return $this->redirect(['action' => 'index']);
+                };
+            }else{
+                if($step->getErrors()){
+                    $errorMess = $step->getErrors();
+                    if(array_key_exists("mobile", $errorMess)){
+                        $step->status = 2;
+                    }else if(array_key_exists("email", $errorMess)){
+                        $step->status = 3;
+                    }else{
+                        $step->status = 0;
+                    }
+                }
+                $step->message = 'Fail';
+                $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Step'));
             }
-            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Step'));
         }
         $watches = $this->Steps->Watches->find('list', ['limit' => 200]);
         $users = $this->Steps->Users->find('list', ['limit' => 200]);
@@ -102,14 +132,21 @@ class StepsController extends AppController
      */
     public function delete($id = null)
     {
+        $id = ($this->request->getData('id')!='')?$this->request->getData('id'):$id;
         $this->request->allowMethod(['post', 'delete']);
         $step = $this->Steps->get($id);
         if ($this->Steps->delete($step)) {
-            $this->Flash->success(__('The {0} has been deleted.', 'Step'));
+            $step->status = 1;
+            $step->message = 'Success';
+            if($this->request->getData('from')!='mobile'){
+                $this->Flash->error(__('The {0} has been deleted.', 'Step'));
+                return $this->redirect(['action' => 'index']);
+            }
         } else {
+            $step->message = 'Fail';
+            $step->status = 0;
             $this->Flash->error(__('The {0} could not be deleted. Please, try again.', 'Step'));
+            return $this->redirect(['action' => 'index']);
         }
-
-        return $this->redirect(['action' => 'index']);
     }
 }

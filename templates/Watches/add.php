@@ -31,7 +31,6 @@
               <?php
                 echo $this->Form->control('name');
                 echo $this->Form->control('firmware_version');
-                echo $this->Form->control('user_id', ['options' => $users, 'empty' => "--Select--"]);
               ?>
             </div>
             <!-- /.box-body -->

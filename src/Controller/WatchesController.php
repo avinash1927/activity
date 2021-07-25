@@ -18,9 +18,6 @@ class WatchesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users'],
-        ];
         $watches = $this->paginate($this->Watches);
 
         $this->set(compact('watches'));
@@ -36,7 +33,7 @@ class WatchesController extends AppController
     public function view($id = null)
     {
         $watch = $this->Watches->get($id, [
-            'contain' => ['Users'],
+            'contain' => ['Steps', 'WatchFaces'],
         ]);
 
         $this->set(compact('watch'));
@@ -76,8 +73,7 @@ class WatchesController extends AppController
                 $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
             }
         }
-        $users = $this->Watches->Users->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
-        $this->set(compact('watch', 'users'));
+        $this->set(compact('watch'));
     }
 
 
@@ -90,14 +86,12 @@ class WatchesController extends AppController
      */
     public function edit($id = null)
     {
-        $id = ($this->request->getData('id')!='')?$this->request->getData('id'):$id;
         $watch = $this->Watches->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $watch = $this->Watches->patchEntity($watch, $this->request->getData());
             if ($this->Watches->save($watch)) {
-
                 $watch->status = 1;
                 $watch->message = 'Success';
                 if($this->request->getData('from')!='mobile'){
@@ -119,8 +113,7 @@ class WatchesController extends AppController
                 $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch'));
             }
         }
-        $users = $this->Watches->Users->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
-        $this->set(compact('watch', 'users'));
+        $this->set(compact('watch'));
     }
 
 
@@ -133,15 +126,20 @@ class WatchesController extends AppController
      */
     public function delete($id = null)
     {
-        $id = ($this->request->getData('id')!='')?$this->request->getData('id'):$id;
         $this->request->allowMethod(['post', 'delete']);
         $watch = $this->Watches->get($id);
         if ($this->Watches->delete($watch)) {
-            $this->Flash->success(__('The {0} has been deleted.', 'Watch'));
+            $watch->status = 1;
+            $watch->message = 'Success';
+            if($this->request->getData('from')!='mobile'){
+                $this->Flash->error(__('The {0} has been deleted.', 'Watch'));
+                return $this->redirect(['action' => 'index']);
+            }
         } else {
+            $watch->message = 'Fail';
+            $watch->status = 0;
             $this->Flash->error(__('The {0} could not be deleted. Please, try again.', 'Watch'));
+            return $this->redirect(['action' => 'index']);
         }
-
-        return $this->redirect(['action' => 'index']);
     }
 }

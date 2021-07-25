@@ -25,7 +25,8 @@ class WatchesTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Watches',
-        'app.Users',
+        'app.Steps',
+        'app.WatchFaces',
     ];
 
     /**
@@ -58,16 +59,6 @@ class WatchesTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
