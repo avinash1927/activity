@@ -11,7 +11,9 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int|null $watch_id
  * @property int|null $user_id
- * @property string|null $upload_file
+ * @property string|null $preview
+ * @property string|null $file
+ * @property bool|null $is_enable
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
@@ -32,7 +34,9 @@ class WatchFace extends Entity
     protected $_accessible = [
         'watch_id' => true,
         'user_id' => true,
-        'upload_file' => true,
+        'preview' => true,
+        'file' => true,
+        'is_enable' => true,
         'created' => true,
         'modified' => true,
         'watch' => true,
