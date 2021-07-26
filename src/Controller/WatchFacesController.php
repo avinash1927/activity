@@ -55,22 +55,44 @@ class WatchFacesController extends AppController
             $watchFace = $this->WatchFaces->patchEntity($watchFace, $this->request->getData());
 
             $postFile = $this->request->getData('upload_file');
-            if ($postFile->getClientFilename()!='') {
-                $name = rand().$postFile->getClientFilename();
-                
-                $type = $postFile->getClientMediaType();
-                $targetPath = WWW_ROOT. 'img'. DS . 'document'. DS. $name;
-                if ($type == 'image/jpeg' || $type == 'image/jpg' || $type == 'image/png') {
-                    if (!empty($name)) {
-                        if ($postFile->getSize() > 0 && $postFile->getError() == 0) {
-                            $postFile->moveTo($targetPath); 
-                            $watchFace->upload_file = $name;
-                        }
-                    }
+            // debug($postFile);
+            // echo $postFile->getSize();
+            // exit;
+
+            if (($open = fopen($postFile->getClientFilename(), "r")) !== FALSE) 
+              {
+                $text = '';
+                while (($data = fgetcsv($open, 1000, ",")) !== FALSE) 
+                {        
+                  $id = $data[0];
+                  $fileUrl = $data[1];
+                  $file_name = basename(trim($fileUrl));
+                  $prevUrl = $data[2];
+                  $prev_name = basename(trim($prevUrl));
+                  file_put_contents( $file_name,file_get_contents($fileUrl));
+                  file_put_contents( $prev_name,file_get_contents($prevUrl));
+                  $text .= "(".$data[0].",'".$prev_name."','".$file_name."'),";
                 }
-            }else{
-                unset($watchFace->upload_file);
-            }
+                echo $text;exit;
+                fclose($open);
+              }
+
+            // if ($postFile->getClientFilename()!='') {
+            //     $name = rand().$postFile->getClientFilename();
+                
+            //     $type = $postFile->getClientMediaType();
+            //     $targetPath = WWW_ROOT. 'img'. DS . 'document'. DS. $name;
+            //     if ($type == 'image/jpeg' || $type == 'image/jpg' || $type == 'image/png') {
+            //         if (!empty($name)) {
+            //             if ($postFile->getSize() > 0 && $postFile->getError() == 0) {
+            //                 $postFile->moveTo($targetPath); 
+            //                 $watchFace->upload_file = $name;
+            //             }
+            //         }
+            //     }
+            // }else{
+            //     unset($watchFace->upload_file);
+            // }
 
             if ($this->WatchFaces->save($watchFace)) {
                 $this->Flash->success(__('The {0} has been saved.', 'Watch Face'));
