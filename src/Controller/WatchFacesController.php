@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Routing\Router;
 
 /**
  * WatchFaces Controller
@@ -22,6 +23,11 @@ class WatchFacesController extends AppController
             'contain' => ['Watches', 'Users'],
         ];
         $watchFaces = $this->paginate($this->WatchFaces);
+
+        foreach ($watchFaces as $key => $watchFace):
+            $watchFace->preview = ($watchFace->preview!='') ? Router::url('/', true)."watches/".$watchFace->preview : '';
+            $watchFace->file = ($watchFace->file!='') ? Router::url('/', true)."watches/".$watchFace->file : '';
+        endforeach;
 
         $this->set(compact('watchFaces'));
     }
