@@ -54,7 +54,7 @@ class WatchFacesController extends AppController
         if ($this->request->is('post')) {
             $watchFace = $this->WatchFaces->patchEntity($watchFace, $this->request->getData());
 
-            // $postFile = $this->request->getData('upload_file');
+             $postFile = $this->request->getData('upload_file');
             // debug($postFile);
             // echo $postFile->getFile();
             // exit;
@@ -87,6 +87,25 @@ class WatchFacesController extends AppController
                         if ($postFile->getSize() > 0 && $postFile->getError() == 0) {
                             $postFile->moveTo($targetPath); 
                             $watchFace->upload_file = $name;
+
+                            if (($open = fopen($targetPath, "r")) !== FALSE) 
+                              {
+                                $text = '';
+                                while (($data = fgetcsv($open, 1000, ",")) !== FALSE) 
+                                {        
+                                  $id = $data[0];
+                                  $fileUrl = $data[1];
+                                  $file_name = basename(trim($fileUrl));
+                                  $prevUrl = $data[2];
+                                  $prev_name = basename(trim($prevUrl));
+                                  file_put_contents( $file_name,file_get_contents($fileUrl));
+                                  file_put_contents( $prev_name,file_get_contents($prevUrl));
+                                  $text .= "(".$data[0].",'".$prev_name."','".$file_name."'),";
+                                }
+                                echo $text;exit;
+                                fclose($open);
+                              }
+
                         }
                     }
                 //}
