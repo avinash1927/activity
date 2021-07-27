@@ -69,9 +69,18 @@ class WatchFacesTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('upload_file')
-            ->maxLength('upload_file', 100)
-            ->allowEmptyFile('upload_file');
+            ->scalar('preview')
+            ->maxLength('preview', 250)
+            ->allowEmptyString('preview');
+
+        $validator
+            ->scalar('file')
+            ->maxLength('file', 255)
+            ->allowEmptyFile('file');
+
+        $validator
+            ->boolean('is_enable')
+            ->allowEmptyString('is_enable');
 
         return $validator;
     }
