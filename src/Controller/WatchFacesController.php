@@ -19,8 +19,13 @@ class WatchFacesController extends AppController
      */
     public function index()
     {
+        $condition = [];
+        if($this->request->getData('watch_id')!=''){
+            $condition += ['watch_id'=>$this->request->getData('watch_id')];
+        }
         $this->paginate = [
             'contain' => ['Watches', 'Users'],
+            "conditions"=>$condition
         ];
         $watchFaces = $this->paginate($this->WatchFaces);
 
