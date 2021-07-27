@@ -35,7 +35,9 @@
                   <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('watch_id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('upload_file') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('preview') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('file') ?></th>
+                  <th scope="col">Status</th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
             </thead>
@@ -45,9 +47,18 @@
                   <td><?= $this->Number->format($watchFace->id) ?></td>
                   <td><?= $this->Number->format($watchFace->watch_id) ?></td>
                   <td><?= $this->Number->format($watchFace->user_id) ?></td>
-                  <td><?= h($watchFace->upload_file) ?></td>
+                  <td><?= h($watchFace->preview) ?></td>
+                  <td><?= h($watchFace->file) ?></td>
+                  <td>
+                    <?php
+                    if($watchFace->is_enable == 1){
+                      echo '<p class="text-green">Active</p>';
+                    }else{
+                      echo '<p class="text-red">In Active</p>';
+                    }
+                    ?>
+                  </td>
                   <td class="actions text-right">
-                      <?= $this->Html->link(__('Edit'), ['action' => 'edit', $watchFace->id], ['class'=>'btn btn-warning btn-xs']) ?>
                       <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $watchFace->id], ['confirm' => __('Are you sure you want to delete # {0}?', $watchFace->id), 'class'=>'btn btn-danger btn-xs']) ?>
                   </td>
                 </tr>

@@ -31,7 +31,7 @@
               <?php
                 echo $this->Form->control('watch_id', ['options' => $watches, 'empty' => '--Select--']);
                 echo $this->Form->control('user_id', ['options' => $users, 'empty' => '--Select--']);
-                echo $this->Form->control('upload_file',['type' => 'file']);
+                echo $this->Form->control('file',['type' => 'file']);
               ?>
             </div>
             <!-- /.box-body -->

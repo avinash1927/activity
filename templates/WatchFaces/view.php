@@ -24,14 +24,18 @@
             <dd><?= $watchFace->has('watch') ? $this->Html->link($watchFace->watch->name, ['controller' => 'Watches', 'action' => 'view', $watchFace->watch->id]) : '' ?></dd>
             <dt scope="row"><?= __('User') ?></dt>
             <dd><?= $watchFace->has('user') ? $this->Html->link($watchFace->user->id, ['controller' => 'Users', 'action' => 'view', $watchFace->user->id]) : '' ?></dd>
-            <dt scope="row"><?= __('Upload File') ?></dt>
-            <dd><?= h($watchFace->upload_file) ?></dd>
+            <dt scope="row"><?= __('Preview') ?></dt>
+            <dd><?= h($watchFace->preview) ?></dd>
+            <dt scope="row"><?= __('File') ?></dt>
+            <dd><?= h($watchFace->file) ?></dd>
             <dt scope="row"><?= __('Id') ?></dt>
             <dd><?= $this->Number->format($watchFace->id) ?></dd>
             <dt scope="row"><?= __('Created') ?></dt>
             <dd><?= h($watchFace->created) ?></dd>
             <dt scope="row"><?= __('Modified') ?></dt>
             <dd><?= h($watchFace->modified) ?></dd>
+            <dt scope="row"><?= __('Is Enable') ?></dt>
+            <dd><?= $watchFace->is_enable ? __('Yes') : __('No'); ?></dd>
           </dl>
         </div>
       </div>

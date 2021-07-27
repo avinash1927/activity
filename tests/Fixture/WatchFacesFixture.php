@@ -49,8 +49,8 @@ class WatchFacesFixture extends TestFixture
                 'preview' => 'Lorem ipsum dolor sit amet',
                 'file' => 'Lorem ipsum dolor sit amet',
                 'is_enable' => 1,
-                'created' => '2021-07-26 17:20:04',
-                'modified' => '2021-07-26 17:20:04',
+                'created' => '2021-07-27 03:20:41',
+                'modified' => '2021-07-27 03:20:41',
             ],
         ];
         parent::init();

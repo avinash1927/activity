@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-use Cake\Routing\Router;
 
 /**
  * WatchFaces Controller
@@ -23,11 +22,6 @@ class WatchFacesController extends AppController
             'contain' => ['Watches', 'Users'],
         ];
         $watchFaces = $this->paginate($this->WatchFaces);
-
-        foreach ($watchFaces as $key => $watchFace):
-            $watchFace->preview = ($watchFace->preview!='') ? Router::url('/', true)."watches/".$watchFace->preview : '';
-            $watchFace->file = ($watchFace->file!='') ? Router::url('/', true)."watches/".$watchFace->file : '';
-        endforeach;
 
         $this->set(compact('watchFaces'));
     }
@@ -58,41 +52,24 @@ class WatchFacesController extends AppController
     {
         $watchFace = $this->WatchFaces->newEmptyEntity();
         if ($this->request->is('post')) {
-            $watchFace = $this->WatchFaces->patchEntity($watchFace, $this->request->getData());
+            //$watchFace = $this->WatchFaces->patchEntity($watchFace, $this->request->getData());
+            // if ($this->WatchFaces->save($watchFace)) {
+            //     $this->Flash->success(__('The {0} has been saved.', 'Watch Face'));
 
-             $postFile = $this->request->getData('upload_file');
-            // debug($postFile);
-            // echo $postFile->getFile();
-            // exit;
+            //     return $this->redirect(['action' => 'index']);
+            // }
+            // $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch Face'));
 
-            // if (($open = fopen($postFile->getClientFilename(), "r")) !== FALSE) 
-            //   {
-            //     $text = '';
-            //     while (($data = fgetcsv($open, 1000, ",")) !== FALSE) 
-            //     {        
-            //       $id = $data[0];
-            //       $fileUrl = $data[1];
-            //       $file_name = basename(trim($fileUrl));
-            //       $prevUrl = $data[2];
-            //       $prev_name = basename(trim($prevUrl));
-            //       file_put_contents( $file_name,file_get_contents($fileUrl));
-            //       file_put_contents( $prev_name,file_get_contents($prevUrl));
-            //       $text .= "(".$data[0].",'".$prev_name."','".$file_name."'),";
-            //     }
-            //     echo $text;exit;
-            //     fclose($open);
-            //   }
-
+            $postFile = $this->request->getData('file');
             if ($postFile->getClientFilename()!='') {
                 $name = rand().$postFile->getClientFilename();
-                
                 $type = $postFile->getClientMediaType();
                 $targetPath = WWW_ROOT. 'watches'. DS . $name;
                 //if ($type == 'image/jpeg' || $type == 'image/jpg' || $type == 'image/png') {
                     if (!empty($name)) {
                         if ($postFile->getSize() > 0 && $postFile->getError() == 0) {
                             $postFile->moveTo($targetPath); 
-                            $watchFace->upload_file = $name;
+                            $watchFace->file = $name;
 
                             if (($open = fopen($targetPath, "r")) !== FALSE) 
                               {
@@ -106,28 +83,30 @@ class WatchFacesController extends AppController
                                   file_put_contents( WWW_ROOT. 'watches'. DS .$file_name,file_get_contents($fileUrl));
                                   file_put_contents( WWW_ROOT. 'watches'. DS .$prev_name,file_get_contents($prevUrl));
                                   $text .= "(".$data[0].",'".$prev_name."','".$file_name."'),";
+
+                                  $requestData = $this->request->getData();
+                                  $watchdata['watch_id'] = $requestData['watch_id'];
+                                  $watchdata['user_id'] = $requestData['user_id'];
+                                  $watchdata['preview'] = $file_name;
+                                  $watchdata['file'] = $prev_name;
+                                  $watchFace = $this->WatchFaces->patchEntity($watchFace, $watchdata);
+                                  $this->WatchFaces->save($watchFace);
                                 }
-                                echo $text;exit;
                                 fclose($open);
+
+                                $this->Flash->success(__('The {0} has been saved.', 'Watch Face'));
+                                return $this->redirect(['action' => 'index']);
                               }
 
                         }
                     }
                 //}
             }else{
-                unset($watchFace->upload_file);
+                unset($watchFace->file);
             }
-
-            if ($this->WatchFaces->save($watchFace)) {
-                $this->Flash->success(__('The {0} has been saved.', 'Watch Face'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch Face'));
         }
         $watches = $this->WatchFaces->Watches->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
         $users = $this->WatchFaces->Users->find('list', ['keyField' => 'id','valueField' => 'name','limit' => 200]);
-
         $this->set(compact('watchFace', 'watches', 'users'));
     }
 
