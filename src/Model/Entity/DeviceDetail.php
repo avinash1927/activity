@@ -9,11 +9,12 @@ use Cake\ORM\Entity;
  * DeviceDetail Entity
  *
  * @property int $id
+ * @property int|null $user_id
  * @property int|null $watch_id
  * @property string|null $watch_mac
  * @property string|null $watch_name
  * @property string|null $watch_firmware
- * @property \Cake\I18n\FrozenDate|null $installlatio_ndate
+ * @property \Cake\I18n\FrozenDate|null $installation_date
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
@@ -31,11 +32,12 @@ class DeviceDetail extends Entity
      * @var array
      */
     protected $_accessible = [
+        'user_id' => true,
         'watch_id' => true,
         'watch_mac' => true,
         'watch_name' => true,
         'watch_firmware' => true,
-        'installlatio_ndate' => true,
+        'installation_date' => true,
         'created' => true,
         'modified' => true,
         'watch' => true,

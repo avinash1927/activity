@@ -29,11 +29,12 @@
           <?php echo $this->Form->create($deviceDetail, ['role' => 'form']); ?>
             <div class="box-body">
               <?php
-                echo $this->Form->control('watch_id', ['options' => $watches, 'empty' => '--Select--','required'=>true]);
-                echo $this->Form->control('watch_mac',['required'=>true]);
-                echo $this->Form->control('watch_name',['required'=>true]);
-                echo $this->Form->control('watch_firmware',['required'=>true]);
-                echo $this->Form->control('installlatio_ndate', ['empty' => true]);
+                echo $this->Form->control('user_id', ['options' => $users, 'empty' => '--Select--']);
+                echo $this->Form->control('watch_id', ['options' => $watches, 'empty' => '--Select--']);
+                echo $this->Form->control('watch_mac');
+                echo $this->Form->control('watch_name');
+                echo $this->Form->control('watch_firmware');
+                echo $this->Form->control('installation_date', ['empty' => true]);
               ?>
             </div>
             <!-- /.box-body -->

@@ -47,6 +47,9 @@ class DeviceDetailsTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+        ]);
         $this->belongsTo('Watches', [
             'foreignKey' => 'watch_id',
         ]);
@@ -80,8 +83,8 @@ class DeviceDetailsTable extends Table
             ->allowEmptyString('watch_firmware');
 
         $validator
-            ->date('installlatio_ndate')
-            ->allowEmptyDate('installlatio_ndate');
+            ->date('installation_date')
+            ->allowEmptyDate('installation_date');
 
         return $validator;
     }
@@ -95,6 +98,7 @@ class DeviceDetailsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
+        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
         $rules->add($rules->existsIn(['watch_id'], 'Watches'), ['errorField' => 'watch_id']);
 
         return $rules;
