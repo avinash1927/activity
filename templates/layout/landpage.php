@@ -5,7 +5,7 @@
 <head>
     <!--- Basic Page Needs  -->
     <meta charset="utf-8">
-    <title>Alfa</title>
+    <title>Luxlo</title>
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="keywords" content="">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="<?= $this->Url->build('/')?>landpage/css/style.css">
     <link rel="stylesheet" href="<?= $this->Url->build('/')?>landpage/css/responsive.css">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="<?= $this->Url->build('/')?>landpage/img/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="<?= $this->Url->build('/')?>landpage/img/banner/image_threee.png">
     <script src="https://kit.fontawesome.com/35c7786524.js" crossorigin="anonymous"></script>
 </head>
 
@@ -81,7 +81,7 @@
                             <ul class="f-social mt-3">
                                 <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                <!-- <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li> -->
                                 <li><a href="#"><i class="fab fa-instagram"></i></a></li>
                                 <li><a href="#"><i class="fab fa-youtube"></i></a></li>
                             </ul>
@@ -190,7 +190,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-7 col-12">
                         <div class="h1fba-left">
-                            <p class="copyright">© <a href="#">Picker</a> 2018, All Rights Reserved.</p>
+                            <p class="copyright">© 2021 RegaloLux Pvt. Ltd.  All Rights Reserved.</p>
                         </div>
                     </div>
                    <!--  <div class="col-lg-6 col-md-6 col-sm-5 col-12">

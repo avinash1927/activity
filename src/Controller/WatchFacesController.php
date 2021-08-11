@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\Routing\Router;
 
 /**
  * WatchFaces Controller
@@ -24,9 +25,15 @@ class WatchFacesController extends AppController
         }
         $this->paginate = [
             'contain' => ['Watches', 'Users'],
-            "conditions"=>$condition
+            "conditions"=>$condition,
+            'limit'=>500,
+            'maxLimit'=>500
         ];
         $watchFaces = $this->paginate($this->WatchFaces);
+        foreach ($watchFaces as $key => $watchFace):
+            $watchFace->preview = ($watchFace->preview!='') ? Router::url('/', true)."watches/".$watchFace->preview : '';
+            $watchFace->file = ($watchFace->file!='') ? Router::url('/', true)."watches/".$watchFace->file : '';
+        endforeach;
 
         $this->set(compact('watchFaces'));
     }
@@ -66,6 +73,7 @@ class WatchFacesController extends AppController
             // $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Watch Face'));
 
             $postFile = $this->request->getData('file');
+            print_r($postFile);exit;
             if ($postFile->getClientFilename()!='') {
                 $name = rand().$postFile->getClientFilename();
                 $type = $postFile->getClientMediaType();
