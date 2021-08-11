@@ -33,11 +33,12 @@
             <thead>
               <tr>
                   <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('watch_id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('watch_mac') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('watch_name') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('watch_firmware') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('installlatio_ndate') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('installation_date') ?></th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
             </thead>
@@ -45,11 +46,12 @@
               <?php foreach ($deviceDetails as $deviceDetail): ?>
                 <tr>
                   <td><?= $this->Number->format($deviceDetail->id) ?></td>
+                  <td><?= $this->Number->format($deviceDetail->user_id) ?></td>
                   <td><?= $this->Number->format($deviceDetail->watch_id) ?></td>
                   <td><?= h($deviceDetail->watch_mac) ?></td>
                   <td><?= h($deviceDetail->watch_name) ?></td>
                   <td><?= h($deviceDetail->watch_firmware) ?></td>
-                  <td><?= h($deviceDetail->installlatio_ndate) ?></td>
+                  <td><?= h($deviceDetail->installation_date) ?></td>
                   <td class="actions text-right">
                       <?= $this->Html->link(__('Edit'), ['action' => 'edit', $deviceDetail->id], ['class'=>'btn btn-warning btn-xs']) ?>
                       <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $deviceDetail->id], ['confirm' => __('Are you sure you want to delete # {0}?', $deviceDetail->id), 'class'=>'btn btn-danger btn-xs']) ?>

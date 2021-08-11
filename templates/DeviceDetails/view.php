@@ -30,8 +30,10 @@
             <dd><?= h($deviceDetail->watch_firmware) ?></dd>
             <dt scope="row"><?= __('Id') ?></dt>
             <dd><?= $this->Number->format($deviceDetail->id) ?></dd>
-            <dt scope="row"><?= __('Installlatio Ndate') ?></dt>
-            <dd><?= h($deviceDetail->installlatio_ndate) ?></dd>
+            <dt scope="row"><?= __('User Id') ?></dt>
+            <dd><?= $this->Number->format($deviceDetail->user_id) ?></dd>
+            <dt scope="row"><?= __('Installation Date') ?></dt>
+            <dd><?= h($deviceDetail->installation_date) ?></dd>
             <dt scope="row"><?= __('Created') ?></dt>
             <dd><?= h($deviceDetail->created) ?></dd>
             <dt scope="row"><?= __('Modified') ?></dt>
