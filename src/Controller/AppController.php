@@ -60,7 +60,10 @@ class AppController extends Controller
         if ($this->request->getAttribute('paging') !== false &&
             in_array($this->response->getType(), ['application/json', 'application/xml'])
         ) {
-            $this->set('paging', current($this->request->getAttribute('paging')));
+            if(is_array($this->request->getAttribute('paging'))){
+                $this->set('paging', current($this->request->getAttribute('paging')));
+            }
+            
         }
         if (in_array($this->response->getType(), ['application/json', 'application/xml'])
         ) {

@@ -116,8 +116,19 @@ class UsersController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
             }else{
-                $user->message = 'Fail';
-                $user->status = 0;
+                if($user->getErrors()){
+                    $errorMess = $user->getErrors();
+                    if(array_key_exists("mobile", $errorMess)){
+                        $user->status = 2;
+                        $user->message = 'Mobile already exists';
+                    }else if(array_key_exists("email", $errorMess)){
+                        $user->status = 3;
+                        $user->message = 'Email already exists';
+                    }else{
+                        $user->status = 0;
+                        $user->message = 'Fail';
+                    }
+                }
                 $this->Flash->error(__('The {0} could not be updated. Please, try again.', 'User'));
             }
         }
@@ -191,9 +202,20 @@ class UsersController extends AppController
                 $userData = $users->toArray();
                 $users = $userData + $res;
             }else{
-                $res['message'] = 'Users Not Available';
-                $res['status'] = 0;
-                $users = $res;
+                $user = $this->Users->newEmptyEntity();
+                $user = $this->Users->patchEntity($user, $this->request->getData());
+                if ($this->Users->save($user)) {
+                    $res['message'] = 'Users Added';
+                    $res['status'] = 1;
+                    $res['otp'] = '123456';
+                    $userData = $user->toArray();
+                    $users = $userData + $res;
+                }else{
+                    $res['message'] = 'Users Not Available';
+                    $res['status'] = 0;
+                    $users = $res;
+                }
+                    
             }
         }
 

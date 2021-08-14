@@ -107,6 +107,7 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
+        $rules->add($rules->isUnique(['mobile']), ['errorField' => 'mobile']);
 
         return $rules;
     }

@@ -75,9 +75,9 @@ class DeviceDetailsController extends AppController
                 $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Device Detail'));
             }
         }
-        $watches = $this->DeviceDetails->Watches->find('list', ['limit' => 200]);
-        $users = $this->DeviceDetails->Users->find('list', ['limit' => 200]);
-        $this->set(compact('deviceDetail', 'watches','users'));
+        // $watches = $this->DeviceDetails->Watches->find('list', ['limit' => 200]);
+        // $users = $this->DeviceDetails->Users->find('list', ['limit' => 200]);
+        $this->set(compact('deviceDetail'));
     }
 
 
