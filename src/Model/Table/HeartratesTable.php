@@ -92,6 +92,7 @@ class HeartratesTable extends Table
     {
         $rules->add($rules->existsIn(['watch_id'], 'Watches'), ['errorField' => 'watch_id']);
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
+        $rules->add($rules->isUnique(['date']), ['errorField' => 'date']);
 
         return $rules;
     }
