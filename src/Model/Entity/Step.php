@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property string|null $stepscount
  * @property string|null $distance
  * @property string|null $calories
+ * @property string|null $steps_ goal
  * @property \Cake\I18n\FrozenDate|null $date
  * @property string|null $sdktime
  * @property int|null $watch_id
@@ -37,6 +38,7 @@ class Step extends Entity
         'stepscount' => true,
         'distance' => true,
         'calories' => true,
+        'steps_goal' => true,
         'date' => true,
         'sdktime' => true,
         'watch_id' => true,

@@ -30,7 +30,6 @@ class OxygensController extends AppController
                 if(strtolower($type) == 'day'){
                     $from_date = date('Y-m-d',strtotime($date));
                     $to_date = date('Y-m-d',strtotime($date));
-                    //$condition = ("date BETWEEN " .$from_date. " AND ".$to_date);
                     //$condition += array( 'date >=' => $from_date,'date <' => $to_date);
                 }
                 if(strtolower($type) == 'week'){
@@ -48,6 +47,11 @@ class OxygensController extends AppController
                     $from_date = date($year."-01-01", strtotime("-1 year"));
                     $to_date = date($year."-12-t", strtotime($from_date));
                 }
+                $condition = array("Oxygens.date BETWEEN '" .$from_date. "' AND '".$to_date."'");
+
+            }
+            if($paramdata['user_id']!=''){
+                $condition += array("Oxygens.user_id"=>$paramdata['user_id']);
             }
         }
         $this->paginate = [
@@ -82,34 +86,41 @@ class OxygensController extends AppController
      */
     public function add()
     {
+        $res = array();
         $oxygen = $this->Oxygens->newEmptyEntity();
         if ($this->request->is('post')) {
             $oxygen = $this->Oxygens->patchEntity($oxygen, $this->request->getData());
+            $oxygen->date = date("Y-m-d",strtotime($this->request->getData('date')));
             if ($this->Oxygens->save($oxygen)) {
                 $oxygen->status = 1;
                 $oxygen->message = 'Success';
+                $res['status'] = 1;
+                $res['message'] = 'Success';
                 if($this->request->getData('from')!='mobile'){
                     $this->Flash->success(__('The {0} has been saved.', 'Oxygen'));
                     return $this->redirect(['action' => 'index']);
                 }
             }else{
-                if($oxygen->getErrors()){
-                    $errorMess = $oxygen->getErrors();
-                    if(array_key_exists("mobile", $errorMess)){
-                        $oxygen->status = 2;
-                    }else if(array_key_exists("email", $errorMess)){
-                        $oxygen->status = 3;
-                    }else{
+                // if($oxygen->getErrors()){
+                //     $errorMess = $oxygen->getErrors();
+                //     print_r($errorMess);
+                //     if(array_key_exists("mobile", $errorMess)){
+                //         $oxygen->status = 2;
+                //     }else if(array_key_exists("email", $errorMess)){
+                //         $oxygen->status = 3;
+                //     }else{
                         $oxygen->status = 0;
-                    }
-                }
+                //     }
+                // }
                 $oxygen->message = 'Fail';
+                $res['status'] = 0;
+                $res['message'] = 'Fail';
                 $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Oxygen'));
             }
         }
-        $watches = $this->Oxygens->Watches->find('list', ['limit' => 200]);
-        $users = $this->Oxygens->Users->find('list', ['limit' => 200]);
-        $this->set(compact('oxygen', 'watches', 'users'));
+        // $watches = $this->Oxygens->Watches->find('list', ['limit' => 200]);
+        // $users = $this->Oxygens->Users->find('list', ['limit' => 200]);
+        $this->set($res);
     }
 
 

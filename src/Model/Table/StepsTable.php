@@ -84,6 +84,11 @@ class StepsTable extends Table
             ->allowEmptyString('calories');
 
         $validator
+            ->scalar('steps_goal')
+            ->maxLength('steps_goal', 50)
+            ->allowEmptyString('steps_goal');
+
+        $validator
             ->date('date')
             ->allowEmptyDate('date');
 
