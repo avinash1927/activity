@@ -56,10 +56,11 @@ class HeartratesController extends AppController
         }
         $this->paginate = [
             'contain' => ['Watches', 'Users'],
+            'conditions'=>$condition
         ];
         $heartrates = $this->paginate($this->Heartrates);
 
-        $this->set(compact('heartrates'));
+        $this->set(compact('heartrates','from_date','to_date'));
     }
 
     /**
@@ -86,34 +87,32 @@ class HeartratesController extends AppController
      */
     public function add()
     {
+        $res = array();
         $heartrate = $this->Heartrates->newEmptyEntity();
         if ($this->request->is('post')) {
             $heartrate = $this->Heartrates->patchEntity($heartrate, $this->request->getData());
+            $heartrate->date = date("Y-m-d",strtotime($this->request->getData('date')));
             if ($this->Heartrates->save($heartrate)) {
                 $heartrate->status = 1;
                 $heartrate->message = 'Success';
+                $res['status'] = 1;
+                $res['message'] = 'Success';
                 if($this->request->getData('from')!='mobile'){
                     $this->Flash->success(__('The {0} has been saved.', 'Heartrate'));
                     return $this->redirect(['action' => 'index']);
                 }
             }else{
-                if($heartrate->getErrors()){
-                    $errorMess = $heartrate->getErrors();
-                    if(array_key_exists("mobile", $errorMess)){
-                        $heartrate->status = 2;
-                    }else if(array_key_exists("email", $errorMess)){
-                        $heartrate->status = 3;
-                    }else{
-                        $heartrate->status = 0;
-                    }
-                }
+                $heartrate->status = 0;
                 $heartrate->message = 'Fail';
+                $res['status'] = 0;
+                $res['message'] = 'Fail';
                 $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Heartrate'));
             }
         }
-        $watches = $this->Heartrates->Watches->find('list', ['limit' => 200]);
-        $users = $this->Heartrates->Users->find('list', ['limit' => 200]);
-        $this->set(compact('heartrate', 'watches', 'users'));
+        // $watches = $this->Heartrates->Watches->find('list', ['limit' => 200]);
+        // $users = $this->Heartrates->Users->find('list', ['limit' => 200]);
+        // $this->set(compact('heartrate', 'watches', 'users'));
+        $this->set($res);
     }
 
 

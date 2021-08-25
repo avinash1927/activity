@@ -92,7 +92,7 @@ class StepsController extends AppController
         if ($this->request->is('post')) {
             $step = $this->Steps->patchEntity($step, $this->request->getData());
             $step->date = date("Y-m-d",strtotime($this->request->getData('date')));
-            $exitData = $this->Steps->find('all', ['conditions'=>['Steps.date'=>date("Y-m-d", strtotime($this->request->getData('date'))),'stepscount'=>$this->request->getData('stepscount')]])->count();
+            $exitData = $this->Steps->find('all', ['conditions'=>['Steps.date'=>date("Y-m-d", strtotime($this->request->getData('date'))),'stepscount'=>$this->request->getData('stepscount'),'user_id'=>$this->request->getData('user_id')]])->count();
             if(!$exitData){
                 if ($this->Steps->save($step)) {
                     $res['status'] = 1;

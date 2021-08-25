@@ -27,6 +27,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Heartrate[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method \App\Model\Entity\Heartrate[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\Heartrate[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class HeartratesTable extends Table
 {
@@ -43,6 +45,8 @@ class HeartratesTable extends Table
         $this->setTable('heartrates');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('Watches', [
             'foreignKey' => 'watch_id',
@@ -92,7 +96,7 @@ class HeartratesTable extends Table
     {
         $rules->add($rules->existsIn(['watch_id'], 'Watches'), ['errorField' => 'watch_id']);
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
-        $rules->add($rules->isUnique(['date']), ['errorField' => 'date']);
+        $rules->add($rules->isUnique(['sdk_time']), ['errorField' => 'sdk_time']);
 
         return $rules;
     }

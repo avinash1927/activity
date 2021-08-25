@@ -14,6 +14,8 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenDate|null $date
  * @property int|null $watch_id
  * @property int|null $user_id
+ * @property \Cake\I18n\FrozenTime|null $created
+ * @property \Cake\I18n\FrozenTime|null $modified
  *
  * @property \App\Model\Entity\Watch $watch
  * @property \App\Model\Entity\User $user
@@ -35,6 +37,8 @@ class Heartrate extends Entity
         'date' => true,
         'watch_id' => true,
         'user_id' => true,
+        'created' => true,
+        'modified' => true,
         'watch' => true,
         'user' => true,
     ];

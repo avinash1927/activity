@@ -48,7 +48,6 @@ class SleepsController extends AppController
                     $to_date = date($year."-12-t", strtotime($from_date));
                 }
                 $condition = array("Sleeps.date BETWEEN '" .$from_date. "' AND '".$to_date."'");
-
             }
             if($paramdata['user_id']!=''){
                 $condition += array("Sleeps.user_id"=>$paramdata['user_id']);
@@ -56,10 +55,11 @@ class SleepsController extends AppController
         }
         $this->paginate = [
             'contain' => ['Watches', 'Users'],
+            'conditions'=>$condition
         ];
         $sleeps = $this->paginate($this->Sleeps);
 
-        $this->set(compact('sleeps'));
+        $this->set(compact('sleeps','from_date','to_date'));
     }
 
     /**
@@ -86,19 +86,53 @@ class SleepsController extends AppController
      */
     public function add()
     {
+        $res = array();
         $sleep = $this->Sleeps->newEmptyEntity();
         if ($this->request->is('post')) {
             $sleep = $this->Sleeps->patchEntity($sleep, $this->request->getData());
-            if ($this->Sleeps->save($sleep)) {
-                $this->Flash->success(__('The {0} has been saved.', 'Sleep'));
-
-                return $this->redirect(['action' => 'index']);
+            $sleep->date = date("Y-m-d",strtotime($this->request->getData('date')));
+            $exitData = $this->Sleeps->find('all', ['conditions'=>['Sleeps.date'=>date("Y-m-d", strtotime($this->request->getData('date'))),'user_id'=>$this->request->getData('user_id')]])->first();
+            if(!$exitData){
+                if ($this->Sleeps->save($sleep)) {
+                    $sleep->status = 1;
+                    $sleep->message = 'Success';
+                    $res['status'] = 1;
+                    $res['message'] = 'Success';
+                    if($this->request->getData('from')!='mobile'){
+                        $this->Flash->success(__('The {0} has been saved.', 'Sleep'));
+                        return $this->redirect(['action' => 'index']);
+                    }
+                }else{
+                    $sleep->status = 0;
+                    $sleep->message = 'Fail';
+                    $res['status'] = 0;
+                    $res['message'] = 'Fail';
+                    $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Sleep'));
+                }
+            }else{
+                $sleep = $this->Sleeps->get($exitData->id, [
+                    'contain' => []
+                ]);
+                $sleep = $this->Sleeps->patchEntity($sleep, $this->request->getData());
+                $sleep->date = date("Y-m-d",strtotime($this->request->getData('date')));
+                if ($this->Sleeps->save($sleep)) {
+                    $res['status'] = 1;
+                    $res['message'] = 'Updated';
+                }else{
+                    if($sleep->getErrors()){
+                        $errorMess = $sleep->getErrors();
+                        debug($errorMess);
+                    }
+                    $res['status'] = 0;
+                    $res['message'] = 'Update fail';
+                }
             }
-            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Sleep'));
         }
-        $watches = $this->Sleeps->Watches->find('list', ['limit' => 200]);
-        $users = $this->Sleeps->Users->find('list', ['limit' => 200]);
-        $this->set(compact('sleep', 'watches', 'users'));
+        // $watches = $this->Sleeps->Watches->find('list', ['limit' => 200]);
+        // $users = $this->Sleeps->Users->find('list', ['limit' => 200]);
+        // $this->set(compact('sleep', 'watches', 'users'));
+        $this->set($res);
+
     }
 
 

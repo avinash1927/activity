@@ -35,6 +35,8 @@ class Oxygen extends Entity
         'date' => true,
         'watch_id' => true,
         'user_id' => true,
+        'created' => true,
+        'modified' => true,
         'watch' => true,
         'user' => true,
     ];

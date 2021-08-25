@@ -50,11 +50,11 @@ class SleepsFixture extends TestFixture
                 'sleep_hours' => 'Lorem ipsum dolor sit amet',
                 'sleep_start_time' => 'Lorem ipsum dolor sit amet',
                 'sleep_end_time' => 'Lorem ipsum dolor sit amet',
-                'date' => '2021-08-23',
+                'date' => '2021-08-25',
                 'watch_id' => 1,
                 'user_id' => 1,
-                'created' => '2021-08-23 02:38:03',
-                'modified' => '2021-08-23 02:38:03',
+                'created' => '2021-08-25 02:56:48',
+                'modified' => '2021-08-25 02:56:48',
             ],
         ];
         parent::init();
