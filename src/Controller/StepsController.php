@@ -38,8 +38,8 @@ class StepsController extends AppController
                     $to_date = date('Y-m-d', strtotime($date_string . '7'));
                 }
                 if(strtolower($type) == 'month'){
-                    $first_day_this_month = date($month.'-01-'.$year); 
-                    $last_day_this_month  = date($month.'-t-'.$year);
+                    $first_day_this_month = date('01-'.$month.'-'.$year); 
+                    $last_day_this_month  = date('t-'.$month.'-'.$year);
                     $from_date = date('Y-m-d',strtotime($first_day_this_month));
                     $to_date = date('Y-m-d',strtotime($last_day_this_month));
                 }
@@ -60,8 +60,7 @@ class StepsController extends AppController
             'conditions'=>$condition,
         ];
         $steps = $this->paginate($this->Steps);
-        $dateRange = array('from_date'=>$from_date,'to_date'=>$to_date);
-        $this->set(compact('steps','dateRange'));
+        $this->set(compact('steps','from_date','to_date'));
     }
 
     /**

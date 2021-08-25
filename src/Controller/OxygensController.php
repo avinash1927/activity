@@ -38,8 +38,8 @@ class OxygensController extends AppController
                     $to_date = date('Y-m-d', strtotime($date_string . '7'));
                 }
                 if(strtolower($type) == 'month'){
-                    $first_day_this_month = date($month.'-01-'.$year); 
-                    $last_day_this_month  = date($month.'-t-'.$year);
+                    $first_day_this_month = date('01-'.$month.'-'.$year); 
+                    $last_day_this_month  = date('t-'.$month.'-'.$year);
                     $from_date = date('Y-m-d',strtotime($first_day_this_month));
                     $to_date = date('Y-m-d',strtotime($last_day_this_month));
                 }
@@ -59,7 +59,7 @@ class OxygensController extends AppController
             'conditions'=>$condition,
         ];
         $oxygens = $this->paginate($this->Oxygens);
-        $this->set(compact('oxygens'));
+        $this->set(compact('oxygens','from_date','to_date'));
     }
 
     /**
