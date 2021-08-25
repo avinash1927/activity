@@ -18,6 +18,42 @@ class HeartratesController extends AppController
      */
     public function index()
     {
+        $condition = array();
+        if ($this->request->is('post')) {
+            $paramdata = $this->request->getData();
+            if(isset($paramdata['date']) && $paramdata['date'] !='' && isset($paramdata['type']) && $paramdata['type'] !=''){
+                $date = $paramdata['date'];
+                $type = $paramdata['type'];
+                $week = date("W", strtotime($date));
+                $month = date("m", strtotime($date));
+                $year = date('Y',strtotime($date));
+                if(strtolower($type) == 'day'){
+                    $from_date = date('Y-m-d',strtotime($date));
+                    $to_date = date('Y-m-d',strtotime($date));
+                    //$condition += array( 'date >=' => $from_date,'date <' => $to_date);
+                }
+                if(strtolower($type) == 'week'){
+                    $date_string = $year . 'W' . sprintf('%02d', $week);
+                    $from_date = date('Y-m-d', strtotime($date_string));
+                    $to_date = date('Y-m-d', strtotime($date_string . '7'));
+                }
+                if(strtolower($type) == 'month'){
+                    $first_day_this_month = date($month.'-01-'.$year); 
+                    $last_day_this_month  = date($month.'-t-'.$year);
+                    $from_date = date('Y-m-d',strtotime($first_day_this_month));
+                    $to_date = date('Y-m-d',strtotime($last_day_this_month));
+                }
+                if(strtolower($type) == 'year'){
+                    $from_date = date($year."-01-01", strtotime("-1 year"));
+                    $to_date = date($year."-12-t", strtotime($from_date));
+                }
+                $condition = array("Heartrates.date BETWEEN '" .$from_date. "' AND '".$to_date."'");
+
+            }
+            if($paramdata['user_id']!=''){
+                $condition += array("Heartrates.user_id"=>$paramdata['user_id']);
+            }
+        }
         $this->paginate = [
             'contain' => ['Watches', 'Users'],
         ];
