@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace App\Controller;
 
 /**
- * Oxygens Controller
+ * BloodPressure Controller
  *
- * @property \App\Model\Table\OxygensTable $Oxygens
+ * @property \App\Model\Table\BloodPressureTable $BloodPressure
  * @method \App\Model\Entity\Oxygen[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class OxygensController extends AppController
+class BloodPressureController extends AppController
 {
     /**
      * Index method
@@ -47,19 +47,19 @@ class OxygensController extends AppController
                     $from_date = date($year."-01-01", strtotime("-1 year"));
                     $to_date = date($year."-12-t", strtotime($from_date));
                 }
-                $condition = array("Oxygens.date BETWEEN '" .$from_date. "' AND '".$to_date."'");
+                $condition = array("BloodPressure.date BETWEEN '" .$from_date. "' AND '".$to_date."'");
 
             }
             if($paramdata['user_id']!=''){
-                $condition += array("Oxygens.user_id"=>$paramdata['user_id']);
+                $condition += array("BloodPressure.user_id"=>$paramdata['user_id']);
             }
         }
         if(strtolower($type) != 'day'){
             $this->paginate = [
-                'fields'=>['Users.name','Oxygens.date','oxygen_value'=>'avg(oxygen_value)'],
+                'fields'=>['Users.name','BloodPressure.date','first_value'=>'ROUND(avg(first_value))','second_value'=>'ROUND(avg(second_value))'],
                 'contain' => ['Users'],
                 'conditions'=>$condition,
-                "group"=>['Oxygens.date']
+                "group"=>['BloodPressure.date']
             ];
         }else{
             $this->paginate = [
@@ -68,11 +68,11 @@ class OxygensController extends AppController
             ];
         }
 
-        // $query = $this->Oxygens->find();
-        // $query->select(['Oxygens.date','avg_oxygen' => $query->func()->avg('Oxygens.oxygen_value')]);
-        // $oxygens = $query->group(['Oxygens.date']);
-        $oxygens = $this->paginate($this->Oxygens);
-        $this->set(compact('oxygens','from_date','to_date'));
+        // $query = $this->BloodPressure->find();
+        // $query->select(['BloodPressure.date','avg_bloodPressure' => $query->func()->avg('BloodPressure.bloodPressure_value')]);
+        // $bloodPressure = $query->group(['BloodPressure.date']);
+        $bloodPressure = $this->paginate($this->BloodPressure);
+        $this->set(compact('bloodPressure','from_date','to_date'));
     }
 
     /**
@@ -84,11 +84,11 @@ class OxygensController extends AppController
      */
     public function view($id = null)
     {
-        $oxygen = $this->Oxygens->get($id, [
+        $bloodPressure = $this->BloodPressure->get($id, [
             'contain' => ['Watches', 'Users'],
         ]);
 
-        $this->set(compact('oxygen'));
+        $this->set(compact('bloodPressure'));
     }
 
 
@@ -100,13 +100,13 @@ class OxygensController extends AppController
     public function add()
     {
         $res = array();
-        $oxygen = $this->Oxygens->newEmptyEntity();
+        $bloodPressure = $this->BloodPressure->newEmptyEntity();
         if ($this->request->is('post')) {
-            $oxygen = $this->Oxygens->patchEntity($oxygen, $this->request->getData());
-            $oxygen->date = date("Y-m-d",strtotime($this->request->getData('date')));
-            if ($this->Oxygens->save($oxygen)) {
-                $oxygen->status = 1;
-                $oxygen->message = 'Success';
+            $bloodPressure = $this->BloodPressure->patchEntity($bloodPressure, $this->request->getData());
+            $bloodPressure->date = date("Y-m-d",strtotime($this->request->getData('date')));
+            if ($this->BloodPressure->save($bloodPressure)) {
+                $bloodPressure->status = 1;
+                $bloodPressure->message = 'Success';
                 $res['status'] = 1;
                 $res['message'] = 'Success';
                 if($this->request->getData('from')!='mobile'){
@@ -114,25 +114,25 @@ class OxygensController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
             }else{
-                // if($oxygen->getErrors()){
-                //     $errorMess = $oxygen->getErrors();
+                // if($bloodPressure->getErrors()){
+                //     $errorMess = $bloodPressure->getErrors();
                 //     print_r($errorMess);
                 //     if(array_key_exists("mobile", $errorMess)){
-                //         $oxygen->status = 2;
+                //         $bloodPressure->status = 2;
                 //     }else if(array_key_exists("email", $errorMess)){
-                //         $oxygen->status = 3;
+                //         $bloodPressure->status = 3;
                 //     }else{
-                        $oxygen->status = 0;
+                        $bloodPressure->status = 0;
                 //     }
                 // }
-                $oxygen->message = 'Fail';
+                $bloodPressure->message = 'Fail';
                 $res['status'] = 0;
                 $res['message'] = 'Fail';
                 $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Oxygen'));
             }
         }
-        // $watches = $this->Oxygens->Watches->find('list', ['limit' => 200]);
-        // $users = $this->Oxygens->Users->find('list', ['limit' => 200]);
+        // $watches = $this->BloodPressure->Watches->find('list', ['limit' => 200]);
+        // $users = $this->BloodPressure->Users->find('list', ['limit' => 200]);
         $this->set($res);
     }
 
@@ -146,36 +146,36 @@ class OxygensController extends AppController
      */
     public function edit($id = null)
     {
-        $oxygen = $this->Oxygens->get($id, [
+        $bloodPressure = $this->BloodPressure->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $oxygen = $this->Oxygens->patchEntity($oxygen, $this->request->getData());
-            if ($this->Oxygens->save($oxygen)) {
-                $oxygen->status = 1;
-                $oxygen->message = 'Success';
+            $bloodPressure = $this->BloodPressure->patchEntity($bloodPressure, $this->request->getData());
+            if ($this->BloodPressure->save($bloodPressure)) {
+                $bloodPressure->status = 1;
+                $bloodPressure->message = 'Success';
                 if($this->request->getData('from')!='mobile'){
                     $this->Flash->success(__('The {0} has been saved.', 'Oxygen'));
                     return $this->redirect(['action' => 'index']);
                 }
             }else{
-                if($oxygen->getErrors()){
-                    $errorMess = $oxygen->getErrors();
+                if($bloodPressure->getErrors()){
+                    $errorMess = $bloodPressure->getErrors();
                     if(array_key_exists("mobile", $errorMess)){
-                        $oxygen->status = 2;
+                        $bloodPressure->status = 2;
                     }else if(array_key_exists("email", $errorMess)){
-                        $oxygen->status = 3;
+                        $bloodPressure->status = 3;
                     }else{
-                        $oxygen->status = 0;
+                        $bloodPressure->status = 0;
                     }
                 }
-                $oxygen->message = 'Fail';
+                $bloodPressure->message = 'Fail';
                 $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Oxygen'));
             }
         }
-        $watches = $this->Oxygens->Watches->find('list', ['limit' => 200]);
-        $users = $this->Oxygens->Users->find('list', ['limit' => 200]);
-        $this->set(compact('oxygen', 'watches', 'users'));
+        $watches = $this->BloodPressure->Watches->find('list', ['limit' => 200]);
+        $users = $this->BloodPressure->Users->find('list', ['limit' => 200]);
+        $this->set(compact('bloodPressure', 'watches', 'users'));
     }
 
 
@@ -189,18 +189,18 @@ class OxygensController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $oxygen = $this->Oxygens->get($id);
-        if ($this->Oxygens->delete($oxygen)) {
+        $bloodPressure = $this->BloodPressure->get($id);
+        if ($this->BloodPressure->delete($bloodPressure)) {
             //$this->Flash->success(__('The {0} has been deleted.', 'Oxygen'));
-            $oxygen->status = 1;
-            $oxygen->message = 'Success';
+            $bloodPressure->status = 1;
+            $bloodPressure->message = 'Success';
             if($this->request->getData('from')!='mobile'){
                 $this->Flash->error(__('The {0} has been deleted.', 'Oxygen'));
                 return $this->redirect(['action' => 'index']);
             }
         } else {
-            $oxygen->message = 'Fail';
-            $oxygen->status = 0;
+            $bloodPressure->message = 'Fail';
+            $bloodPressure->status = 0;
             $this->Flash->error(__('The {0} could not be deleted. Please, try again.', 'Oxygen'));
             return $this->redirect(['action' => 'index']);
         }

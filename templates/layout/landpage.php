@@ -66,7 +66,7 @@
                         <div class="text-center mb-4">
                             <img src="<?= $this->Url->build('/')?>landpage/img/banner/logo.png" class="img-fluid" width="150">
                         </div>
-                        <p style="text-align: center;"><span style="font-size: 18px;">AUGUST 21</span></p>
+                        <p style="text-align: center;"><span style="font-size: 18px;">OCTOBER 2021</span></p>
                         <h2 class="title1 animated  mb-5">We're almost ready to launch our product</h2>
                         
                         <div class="text-center pt-2">

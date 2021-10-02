@@ -69,9 +69,9 @@ class SleepsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('sleep_type')
-            ->maxLength('sleep_type', 100)
-            ->allowEmptyString('sleep_type');
+            ->scalar('sleep_goal')
+            ->maxLength('sleep_goal', 100)
+            ->allowEmptyString('sleep_goal');
 
         $validator
             ->scalar('sleep_hours')
@@ -91,6 +91,18 @@ class SleepsTable extends Table
         $validator
             ->date('date')
             ->allowEmptyDate('date');
+
+        $validator
+            ->integer('light')
+            ->allowEmptyString('light');
+
+        $validator
+            ->integer('sober')
+            ->allowEmptyString('sober');
+
+        $validator
+            ->integer('rest')
+            ->allowEmptyString('rest');
 
         return $validator;
     }

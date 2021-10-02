@@ -38,8 +38,8 @@ class HeartratesController extends AppController
                     $to_date = date('Y-m-d', strtotime($date_string . '7'));
                 }
                 if(strtolower($type) == 'month'){
-                    $first_day_this_month = date($month.'-01-'.$year); 
-                    $last_day_this_month  = date($month.'-t-'.$year);
+                    $first_day_this_month = date($year.'-'.$month.'-01'); 
+                    $last_day_this_month  = date($year.'-'.$month.'-t'); 
                     $from_date = date('Y-m-d',strtotime($first_day_this_month));
                     $to_date = date('Y-m-d',strtotime($last_day_this_month));
                 }
@@ -54,11 +54,23 @@ class HeartratesController extends AppController
                 $condition += array("Heartrates.user_id"=>$paramdata['user_id']);
             }
         }
-        $this->paginate = [
-            'contain' => ['Watches', 'Users'],
-            'conditions'=>$condition
-        ];
+        if(strtolower($type) != 'day'){
+            $this->paginate = [
+                'fields'=>['Users.name','Heartrates.date','hr_value'=>'avg(hr_value)'],
+                'contain' => ['Watches', 'Users'],
+                'conditions'=>$condition,
+                "group"=>['Users.name','Heartrates.date']
+            ];
+        }else{
+            $this->paginate = [
+                'contain' => ['Watches', 'Users'],
+                'conditions'=>$condition,
+            ];
+        }
         $heartrates = $this->paginate($this->Heartrates);
+        foreach ($heartrates as $key => $value) {
+            $value->hr_value = round($value->hr_value);
+        }
 
         $this->set(compact('heartrates','from_date','to_date'));
     }

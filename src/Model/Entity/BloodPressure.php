@@ -6,17 +6,13 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Sleep Entity
+ * BloodPressure Entity
  *
  * @property int $id
- * @property string|null $sleep_goal
- * @property string|null $sleep_hours
- * @property string|null $sleep_start_time
- * @property string|null $sleep_end_time
+ * @property string|null $first_value
+ * @property string|null $second_value
+ * @property string|null $sdk_time
  * @property \Cake\I18n\FrozenDate|null $date
- * @property int|null $light
- * @property int|null $sober
- * @property int|null $rest
  * @property int|null $watch_id
  * @property int|null $user_id
  * @property \Cake\I18n\FrozenTime|null $created
@@ -25,7 +21,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Watch $watch
  * @property \App\Model\Entity\User $user
  */
-class Sleep extends Entity
+class BloodPressure extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -37,14 +33,10 @@ class Sleep extends Entity
      * @var array
      */
     protected $_accessible = [
-        'sleep_goal' => true,
-        'sleep_hours' => true,
-        'sleep_start_time' => true,
-        'sleep_end_time' => true,
+        'first_value' => true,
+        'second_value' => true,
+        'sdk_time' => true,
         'date' => true,
-        'light' => true,
-        'sober' => true,
-        'rest' => true,
         'watch_id' => true,
         'user_id' => true,
         'created' => true,

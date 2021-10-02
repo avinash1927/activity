@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Datasource\ConnectionManager;
+
+
 /**
  * Steps Controller
  *
@@ -92,8 +95,8 @@ class StepsController extends AppController
         if ($this->request->is('post')) {
             $step = $this->Steps->patchEntity($step, $this->request->getData());
             $step->date = date("Y-m-d",strtotime($this->request->getData('date')));
-            $exitData = $this->Steps->find('all', ['conditions'=>['Steps.date'=>date("Y-m-d", strtotime($this->request->getData('date'))),'stepscount'=>$this->request->getData('stepscount'),'user_id'=>$this->request->getData('user_id')]])->count();
-            if(!$exitData){
+            $exitData = $this->Steps->find('all', ['conditions'=>['Steps.date'=>date("Y-m-d", strtotime($this->request->getData('date'))),'user_id'=>$this->request->getData('user_id')]])->first();
+            if(!isset($exitData->stepscount)){
                 if ($this->Steps->save($step)) {
                     $res['status'] = 1;
                     $res['message'] = 'Success';
@@ -107,9 +110,28 @@ class StepsController extends AppController
                     $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Step'));
                 }
             }else{
-                $res['status'] = 2;
-                $res['message'] = 'Already Exits';
-                $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Step'));
+                if($exitData->stepscount < $this->request->getData('stepscount')){
+                    $step = $this->Steps->get($exitData->id, [
+                        'contain' => []
+                    ]);
+                    $step = $this->Steps->patchEntity($step, $this->request->getData());
+                    $step->date = date("Y-m-d",strtotime($this->request->getData('date')));
+                    if ($this->Steps->save($step)) {
+                        $res['status'] = 1;
+                        $res['message'] = 'Updated';
+                    }else{
+                        if($step->getErrors()){
+                            $errorMess = $step->getErrors();
+                            debug($errorMess);
+                        }
+                        $res['status'] = 0;
+                        $res['message'] = 'Update fail';
+                    }
+                }else{
+                    $res['status'] = 0;
+                    $res['message'] = 'Not Update';
+                }
+                
             }
         }
         // $watches = $this->Steps->Watches->find('list', ['limit' => 200]);
@@ -186,5 +208,37 @@ class StepsController extends AppController
             $this->Flash->error(__('The {0} could not be deleted. Please, try again.', 'Step'));
             return $this->redirect(['action' => 'index']);
         }
+    }
+
+    public function getStepsData()
+    {
+        $connection = ConnectionManager::get('default');
+        if($this->request->getData('type')=='week'){
+            $step = $connection->execute("SELECT YEAR(DATE) as year,WEEK(DATE) as name,SUM(`stepscount`) as stepscount
+                                        FROM steps
+                                        WHERE DATE <= '".date("Y-m-d",strtotime($this->request->getData('date')))."'
+                                        GROUP BY YEAR(DATE),WEEK(DATE) order by WEEK(DATE) desc  limit 4")->fetchAll('assoc');
+            $num = 4;
+            foreach ($step as $key => $value) {
+                $step[$key]['name'] = "Week ".$num;
+                $num--;
+            }
+            krsort($step);
+            $step=array_values($step);
+        }
+        if($this->request->getData('type')=='year'){
+            $step = $connection->execute("SELECT YEAR(DATE) as year,month(DATE) as name,SUM(`stepscount`) as stepscount
+                                        FROM steps
+                                        WHERE year(DATE) = '".date("Y",strtotime($this->request->getData('date')))."'
+                                        GROUP BY YEAR(DATE),month(DATE) order by month(DATE) asc")->fetchAll('assoc');
+
+            foreach ($step as $key => $value) {
+                $step[$key]['name'] = date("M",strtotime($value['year']."-".$value['name']."-01"));
+            }
+            krsort($step);
+            $step=array_values($step);
+        }
+        
+        $this->set(compact('step'));
     }
 }

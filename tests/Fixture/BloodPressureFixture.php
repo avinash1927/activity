@@ -6,10 +6,16 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * SleepsFixture
+ * BloodPressureFixture
  */
-class SleepsFixture extends TestFixture
+class BloodPressureFixture extends TestFixture
 {
+    /**
+     * Table name
+     *
+     * @var string
+     */
+    public $table = 'blood_pressure';
     /**
      * Fields
      *
@@ -18,14 +24,10 @@ class SleepsFixture extends TestFixture
     // phpcs:disable
     public $fields = [
         'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
-        'sleep_goal' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
-        'sleep_hours' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
-        'sleep_start_time' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
-        'sleep_end_time' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'first_value' => ['type' => 'string', 'length' => 200, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'second_value' => ['type' => 'string', 'length' => 200, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'sdk_time' => ['type' => 'string', 'length' => 200, 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
         'date' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
-        'light' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'sober' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'rest' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'watch_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'user_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
@@ -49,18 +51,14 @@ class SleepsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'sleep_goal' => 'Lorem ipsum dolor sit amet',
-                'sleep_hours' => 'Lorem ipsum dolor sit amet',
-                'sleep_start_time' => 'Lorem ipsum dolor sit amet',
-                'sleep_end_time' => 'Lorem ipsum dolor sit amet',
+                'first_value' => 'Lorem ipsum dolor sit amet',
+                'second_value' => 'Lorem ipsum dolor sit amet',
+                'sdk_time' => 'Lorem ipsum dolor sit amet',
                 'date' => '2021-09-12',
-                'light' => 1,
-                'sober' => 1,
-                'rest' => 1,
                 'watch_id' => 1,
                 'user_id' => 1,
-                'created' => '2021-09-12 18:19:05',
-                'modified' => '2021-09-12 18:19:05',
+                'created' => '2021-09-12 18:33:00',
+                'modified' => '2021-09-12 18:33:00',
             ],
         ];
         parent::init();

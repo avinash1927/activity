@@ -38,8 +38,8 @@ class SleepsController extends AppController
                     $to_date = date('Y-m-d', strtotime($date_string . '7'));
                 }
                 if(strtolower($type) == 'month'){
-                    $first_day_this_month = date($month.'-01-'.$year); 
-                    $last_day_this_month  = date($month.'-t-'.$year);
+                    $first_day_this_month = date($year.'-'.$month.'-01'); 
+                    $last_day_this_month  = date($year.'-'.$month.'-t'); 
                     $from_date = date('Y-m-d',strtotime($first_day_this_month));
                     $to_date = date('Y-m-d',strtotime($last_day_this_month));
                 }
@@ -110,22 +110,25 @@ class SleepsController extends AppController
                     $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Sleep'));
                 }
             }else{
-                $sleep = $this->Sleeps->get($exitData->id, [
-                    'contain' => []
-                ]);
-                $sleep = $this->Sleeps->patchEntity($sleep, $this->request->getData());
-                $sleep->date = date("Y-m-d",strtotime($this->request->getData('date')));
-                if ($this->Sleeps->save($sleep)) {
-                    $res['status'] = 1;
-                    $res['message'] = 'Updated';
-                }else{
-                    if($sleep->getErrors()){
-                        $errorMess = $sleep->getErrors();
-                        debug($errorMess);
-                    }
-                    $res['status'] = 0;
-                    $res['message'] = 'Update fail';
-                }
+                // $sleep = $this->Sleeps->get($exitData->id, [
+                //     'contain' => []
+                // ]);
+                // $sleep = $this->Sleeps->patchEntity($sleep, $this->request->getData());
+                // $sleep->date = date("Y-m-d",strtotime($this->request->getData('date')));
+                // if ($this->Sleeps->save($sleep)) {
+                //     $res['status'] = 1;
+                //     $res['message'] = 'Updated';
+                // }else{
+                //     if($sleep->getErrors()){
+                //         $errorMess = $sleep->getErrors();
+                //         debug($errorMess);
+                //     }
+                //     $res['status'] = 0;
+                //     $res['message'] = 'Update fail';
+                // }
+
+                $res['status'] = 0;
+                $res['message'] = 'Already Exits';
             }
         }
         // $watches = $this->Sleeps->Watches->find('list', ['limit' => 200]);
