@@ -19,12 +19,12 @@ class UsersController extends AppController
      */
     public function index()
     {
-        // $users = $this->paginate($this->Users);
-
-        // $this->set(compact('users'));
-
-        //$users = $this->Users->find()->where(['is_trash' => 0])->order(['id' => 'DESC']);
         $condition = array('is_trash' => 0);
+        if ($this->request->is('post')) {
+            if($this->request->getData('id')!=''){
+                $condition += array("Users.id"=>$this->request->getData('id'));
+            }
+        }
         $this->paginate = array(
             'conditions'=>$condition,
             'order'=>array(
@@ -220,5 +220,32 @@ class UsersController extends AppController
         }
 
         $this->set(compact('users'));
+    }
+
+    public function getWeather()
+    {
+        if ($this->request->is('post')) {
+            $this->loadModel('WeatherHistories');
+            $exitsData = $this->WeatherHistories->find('all', [
+                'conditions'=>['WeatherHistories.user_id'=>$this->request->getData('user_id'),"WeatherHistories.created > '".date('Y-m-d H:i:s',strtotime("-3 hours"))."'"],
+                'order'=>['WeatherHistories.id'=>'desc']]
+            )->first();
+            if($exitsData){
+                $data = $exitsData->weather;
+            }else{
+                $ch = curl_init('https://api.openweathermap.org/data/2.5/weather?lat='.$this->request->getData('latitude').'&lon='.$this->request->getData('longitude').'&appid=b12be9c967d1ca4b6d36a269ea292f01');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                $data = curl_exec($ch);
+                curl_close($ch);
+                $weatherHistories = $this->WeatherHistories->newEmptyEntity();
+                $weatherHistories = $this->WeatherHistories->patchEntity($weatherHistories, array('user_id'=>$this->request->getData('user_id'),'weather'=>$data));
+                if($this->WeatherHistories->save($weatherHistories)) {}
+            }
+            
+             
+            $data =  json_decode($data);
+            $this->set(compact('data'));
+
+        }
     }
 }

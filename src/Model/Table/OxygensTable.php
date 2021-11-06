@@ -92,7 +92,7 @@ class OxygensTable extends Table
     {
         $rules->add($rules->existsIn(['watch_id'], 'Watches'), ['errorField' => 'watch_id']);
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
-        $rules->add($rules->isUnique(['sdk_time']), ['errorField' => 'sdk_time']);
+        $rules->add($rules->isUnique(['sdk_time','user_id']), ['errorField' => 'sdk_time']);
 
         return $rules;
     }
