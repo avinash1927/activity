@@ -233,13 +233,7 @@ class UsersController extends AppController
             if($exitsData){
                 $data = $exitsData->weather;
             }else{
-                // $ch = curl_init('https://api.openweathermap.org/data/2.5/weather?lat='.$this->request->getData('latitude').'&lon='.$this->request->getData('longitude').'&appid=b12be9c967d1ca4b6d36a269ea292f01');
-                // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                // $data = curl_exec($ch);
-                // curl_close($ch);
-                // $weatherHistories = $this->WeatherHistories->newEmptyEntity();
-                // $weatherHistories = $this->WeatherHistories->patchEntity($weatherHistories, array('user_id'=>$this->request->getData('user_id'),'weather'=>$data));
-                // if($this->WeatherHistories->save($weatherHistories)) {}
+                
             }
             
              
